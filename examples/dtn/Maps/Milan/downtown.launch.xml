@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+	<copy file="downtown.sumo.xml" />
+	<copy file="downtown.routes.xml" />
+	<copy file="downtown.sumo.cfg" type="config" />
+	<basedir path="../3rdparty/GRC/examples/dtn/Maps/Milan/"/>
+</launch>
+

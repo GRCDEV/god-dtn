@@ -1,0 +1,5 @@
+<routes>
+	 <vType id="coche" accel="0.5" decel="2" sigma="0.5" length="4" minGap="2" maxSpeed="50"/>
+	 <vType id="camion" accel="0.3" decel="1" sigma="0.5" length="10" minGap="5" maxSpeed="25"/>
+	 <route id="route0" multi_ref="x" edges="autopista autopist2"></route>
+</routes>

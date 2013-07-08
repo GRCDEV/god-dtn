@@ -1,0 +1,29 @@
+<configuration>
+    <input>
+        <net-file value="net.net.xml"/>
+        <trip-files value="trips.xml"/>
+    </input>
+    <output>
+        <output-file value="trips_000.rou.xml"/>
+        <exit-times value="False"/>
+    </output>
+    <processing>
+        <ignore-errors value="True"/>
+        <with-taz value="False"/>
+        <gawron.beta value="0.9"/>
+        <gawron.a value="0.5"/>
+        <keep-all-routes value="False"/>
+        <routing-algorithm value="dijkstra"/>
+        <max-alternatives value="5"/>
+        <logit value="False"/>
+        <logit.beta value="0.15"/>
+        <logit.gamma value="1.0"/>
+    </processing>
+    <random_number><random value="False"/></random_number>
+    <time><begin value="0"/> </time>
+    <report>
+        <verbose value="False"/>
+        <no-step-log value="True"/>
+        <no-warnings value="False"/>
+    </report>
+</configuration>

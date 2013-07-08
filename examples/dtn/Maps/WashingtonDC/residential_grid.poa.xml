@@ -1,0 +1,5 @@
+<poas>
+  <poa id="poa1" x="2000" y="920" rate="270000000" range="150" />
+  <poa id="poa2" x="939" y="417" rate="270000000" range="150" />
+  <poa id="poa3" x="979" y="1329" rate="270000000" range="150" />
+</poas>

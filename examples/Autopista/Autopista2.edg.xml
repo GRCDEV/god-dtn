@@ -1,0 +1,4 @@
+<edges>
+   <edge id="autopista" from="izquierda" to="derecha" speed="33.33" priority="0" spreadType="right" numLanes="2"/>
+   <edge id="autopist2" from="derecha" to="derech2" speed="33.33" priority="0" spreadType="right" numLanes="2"/>
+</edges>

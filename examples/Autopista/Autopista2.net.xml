@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Tue Feb 28 12:08:49 2012 by SUMO netconvert Version 0.13.1
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="Autopista2.nod.xml"/>
+        <edge-files value="Autopista2.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,10000.20,0.00" origBoundary="0.00,0.00,10000.20,0.00" projParameter="!"/>
+
+    <edge id=":derecha_0" function="internal">
+        <lane id=":derecha_0_0" index="0" speed="33.33" length="0.10" shape="10000.00,-4.95 10000.00,-4.95"/>
+    </edge>
+    <edge id=":derecha_1" function="internal">
+        <lane id=":derecha_1_0" index="0" speed="33.33" length="0.10" shape="10000.00,-1.65 10000.00,-1.65"/>
+    </edge>
+
+    <edge id="autopist2" from="derecha" to="derech2" priority="0">
+        <lane id="autopist2_0" index="0" speed="33.33" length="0.20" shape="10000.00,-4.95 10000.20,-4.95"/>
+        <lane id="autopist2_1" index="1" speed="33.33" length="0.20" shape="10000.00,-1.65 10000.20,-1.65"/>
+    </edge>
+    <edge id="autopista" from="izquierda" to="derecha" priority="0">
+        <lane id="autopista_0" index="0" speed="33.33" length="10000.00" shape="0.00,-4.95 10000.00,-4.95"/>
+        <lane id="autopista_1" index="1" speed="33.33" length="10000.00" shape="0.00,-1.65 10000.00,-1.65"/>
+    </edge>
+
+    <junction id="derech2" type="unregulated" x="10000.20" y="0.00" incLanes="autopist2_0 autopist2_1" intLanes="" shape="10000.20,-6.55 10000.20,-0.05">
+    </junction>
+    <junction id="derecha" type="priority" x="10000.00" y="0.00" incLanes="autopista_0 autopista_1" intLanes=":derecha_0_0 :derecha_1_0" shape="10000.00,-0.05 10000.00,-6.55 10000.00,-0.05">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="izquierda" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55">
+    </junction>
+
+    <connection from="autopista" to="autopist2" fromLane="0" toLane="0" via=":derecha_0_0" dir="s" state="M"/>
+    <connection from="autopista" to="autopist2" fromLane="1" toLane="1" via=":derecha_1_0" dir="s" state="M"/>
+
+    <connection from=":derecha_0" to="autopist2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":derecha_1" to="autopist2" fromLane="0" toLane="1" dir="s" state="M"/>
+
+</net>

@@ -1,0 +1,3 @@
+routes.random.xml has been generated using:
+
+../../tools/randomRoutes.sh -n net.net.xml -r routes.random.xml -N 300

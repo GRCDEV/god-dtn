@@ -1,0 +1,2 @@
+#!/bin/bash
+opp_runall  -j4 opp_run -r 0..9 -u Cmdenv -n ../../..:../../../../examples:../../../../src -l ../../../../src/inet -l ../../../inet -c NoEpidemic DtnTest.ini

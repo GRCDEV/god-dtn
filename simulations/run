@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/god_dtn -n .:../src $*
+# for shared lib, use: opp_run -l ../src/god_dtn -n .:../src $*

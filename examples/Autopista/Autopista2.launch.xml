@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+	<basedir path="/home/alvaro/Trabajo/git/alvaroVanets/simulations/Mapas/Autopista/"/>
+	<copy file="Autopista2.net.xml" />
+	<copy file="Autopista2.rou.xml" />
+	<copy file="Autopista2.sumo.cfg" type="config" />
+</launch>
+
