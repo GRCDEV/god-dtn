@@ -307,15 +307,19 @@ void EpidemicProtocol::sendOffer(IPvXAddress ip, uint64 nodeId)
 
 void EpidemicProtocol::notifyMessageReceived(uint64 srcId, uint32 msgId, uint32 seqN)
 {
-    for(std::set<DTNUnique>::iterator i=onBuffer.begin(); i!= onBuffer.end();){
+    std::list<DTNUnique> toRemove;
+    for(std::set<DTNUnique>::iterator i=onBuffer.begin(); i!= onBuffer.end(); i++){
         if(i->msgId == msgId && i-> srcId == srcId){
-            delivered.insert(*i);
-            buffer.erase(*i);
-            i=onBuffer.erase(i);
+            toRemove.push_back(*i);
         }
         else{
             i++;
         }
+    }
+    for(std::list<DTNUnique>::iterator i=toRemove.begin(); i != toRemove.end(); i++){
+        delivered.insert(*i);
+        buffer.erase(*i);
+        onBuffer.erase(*i);
     }
 }
 

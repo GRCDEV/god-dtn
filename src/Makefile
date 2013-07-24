@@ -71,17 +71,6 @@ INCLUDE_PATH = \
     -Ietc/DataAnalisys/dtn/Scripts \
     -Ietc/DataAnalisys/dtn/Scripts/Ploting \
     -Ietc/DataAnalisys/dtn/Scripts/processing \
-    -Iexamples \
-    -Iexamples/Autopista \
-    -Iexamples/beacons \
-    -Iexamples/dtn \
-    -Iexamples/dtn/Maps \
-    -Iexamples/dtn/Maps/Milan \
-    -Iexamples/dtn/Maps/Moscow \
-    -Iexamples/dtn/Maps/WashingtonDC \
-    -Iexamples/idealMac \
-    -Iexamples/navigator \
-    -Iexamples/randomRoutes \
     -Ilinklayer \
     -Ilinklayer/Ideal \
     -Imobility \
@@ -246,17 +235,6 @@ clean:
 	$(Q)-rm -f etc/DataAnalisys/dtn/Scripts/*_m.cc etc/DataAnalisys/dtn/Scripts/*_m.h
 	$(Q)-rm -f etc/DataAnalisys/dtn/Scripts/Ploting/*_m.cc etc/DataAnalisys/dtn/Scripts/Ploting/*_m.h
 	$(Q)-rm -f etc/DataAnalisys/dtn/Scripts/processing/*_m.cc etc/DataAnalisys/dtn/Scripts/processing/*_m.h
-	$(Q)-rm -f examples/*_m.cc examples/*_m.h
-	$(Q)-rm -f examples/Autopista/*_m.cc examples/Autopista/*_m.h
-	$(Q)-rm -f examples/beacons/*_m.cc examples/beacons/*_m.h
-	$(Q)-rm -f examples/dtn/*_m.cc examples/dtn/*_m.h
-	$(Q)-rm -f examples/dtn/Maps/*_m.cc examples/dtn/Maps/*_m.h
-	$(Q)-rm -f examples/dtn/Maps/Milan/*_m.cc examples/dtn/Maps/Milan/*_m.h
-	$(Q)-rm -f examples/dtn/Maps/Moscow/*_m.cc examples/dtn/Maps/Moscow/*_m.h
-	$(Q)-rm -f examples/dtn/Maps/WashingtonDC/*_m.cc examples/dtn/Maps/WashingtonDC/*_m.h
-	$(Q)-rm -f examples/idealMac/*_m.cc examples/idealMac/*_m.h
-	$(Q)-rm -f examples/navigator/*_m.cc examples/navigator/*_m.h
-	$(Q)-rm -f examples/randomRoutes/*_m.cc examples/randomRoutes/*_m.h
 	$(Q)-rm -f linklayer/*_m.cc linklayer/*_m.h
 	$(Q)-rm -f linklayer/Ideal/*_m.cc linklayer/Ideal/*_m.h
 	$(Q)-rm -f mobility/*_m.cc mobility/*_m.h
@@ -274,7 +252,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc Pruebas/*.cc Pruebas/beacons/*.cc applications/*.cc applications/beacons/*.cc applications/dtn/*.cc applications/dtn/GeOpps/*.cc applications/dtn/direct/*.cc applications/dtn/distance/*.cc applications/dtn/epidemic/*.cc applications/dtn/msdp/*.cc applications/dtn/random/*.cc applications/sumo/*.cc etc/*.cc etc/DataAnalisys/*.cc etc/DataAnalisys/dtn/*.cc etc/DataAnalisys/dtn/Scripts/*.cc etc/DataAnalisys/dtn/Scripts/Ploting/*.cc etc/DataAnalisys/dtn/Scripts/processing/*.cc examples/*.cc examples/Autopista/*.cc examples/beacons/*.cc examples/dtn/*.cc examples/dtn/Maps/*.cc examples/dtn/Maps/Milan/*.cc examples/dtn/Maps/Moscow/*.cc examples/dtn/Maps/WashingtonDC/*.cc examples/idealMac/*.cc examples/navigator/*.cc examples/randomRoutes/*.cc linklayer/*.cc linklayer/Ideal/*.cc mobility/*.cc mobility/movStats/*.cc navigationSystem/*.cc nodes/*.cc tools/*.cc tools/osmParser/*.cc tools/osmParser/lib/*.cc world/*.cc world/sumoNav/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc Pruebas/*.cc Pruebas/beacons/*.cc applications/*.cc applications/beacons/*.cc applications/dtn/*.cc applications/dtn/GeOpps/*.cc applications/dtn/direct/*.cc applications/dtn/distance/*.cc applications/dtn/epidemic/*.cc applications/dtn/msdp/*.cc applications/dtn/random/*.cc applications/sumo/*.cc etc/*.cc etc/DataAnalisys/*.cc etc/DataAnalisys/dtn/*.cc etc/DataAnalisys/dtn/Scripts/*.cc etc/DataAnalisys/dtn/Scripts/Ploting/*.cc etc/DataAnalisys/dtn/Scripts/processing/*.cc linklayer/*.cc linklayer/Ideal/*.cc mobility/*.cc mobility/movStats/*.cc navigationSystem/*.cc nodes/*.cc tools/*.cc tools/osmParser/*.cc tools/osmParser/lib/*.cc world/*.cc world/sumoNav/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/applications/beacons/BeaconPkt_m.o: applications/beacons/BeaconPkt_m.cc \
