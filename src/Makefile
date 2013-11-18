@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for god-dtn
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src -I../../inet/src/networklayer/icmpv6 -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/world/powercontrol -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
+#  opp_makemake -f --deep -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -18,21 +18,23 @@ INCLUDE_PATH = \
     -I../../inet/src/linklayer/ieee80211/radio \
     -I../../inet/src/linklayer/ethernet \
     -I../../inet/src/networklayer/common \
-    -I../../inet/src \
     -I../../inet/src/networklayer/icmpv6 \
+    -I../../inet/src \
     -I../../inet/src/world/obstacles \
     -I../../inet/src/networklayer/xmipv6 \
     -I../../inet/src/mobility/models \
     -I../../inet/src/networklayer/manetrouting/base \
     -I../../inet/src/networklayer/contract \
     -I../../inet/src/mobility \
+    -I../../inet/src/networklayer/autorouting/ipv4 \
     -I../../inet/src/linklayer/ieee80211/mgmt \
     -I../../inet/src/util \
     -I../../inet/src/transport/contract \
+    -I../../inet/src/linklayer/common \
+    -I../../inet/src/status \
     -I../../inet/src/linklayer/radio/propagation \
     -I../../inet/src/world/traci \
     -I../../inet/src/linklayer/ieee80211/radio/errormodel \
-    -I../../inet/src/world/powercontrol \
     -I../../inet/src/linklayer/radio \
     -I../../inet/src/util/headerserializers/tcp \
     -I../../inet/src/networklayer/ipv4 \
@@ -266,6 +268,7 @@ $O/applications/beacons/BeaconsApp.o: applications/beacons/BeaconsApp.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -313,6 +316,7 @@ $O/applications/dtn/BackBoneApp.o: applications/dtn/BackBoneApp.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -357,6 +361,7 @@ $O/applications/dtn/DtnOneCopyProtocol.o: applications/dtn/DtnOneCopyProtocol.cc
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -397,6 +402,7 @@ $O/applications/dtn/SinkApp.o: applications/dtn/SinkApp.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -437,6 +443,7 @@ $O/applications/dtn/GeOpps/DTNGeOpps.o: applications/dtn/GeOpps/DTNGeOpps.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -473,6 +480,7 @@ $O/applications/dtn/GeOpps/GeOppsBeaconsApp.o: applications/dtn/GeOpps/GeOppsBea
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -520,6 +528,7 @@ $O/applications/dtn/direct/DirectBeaconsApp.o: applications/dtn/direct/DirectBea
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -559,6 +568,7 @@ $O/applications/dtn/distance/DTNDistanceBased.o: applications/dtn/distance/DTNDi
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -594,6 +604,7 @@ $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/Dis
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -642,6 +653,7 @@ $O/applications/dtn/epidemic/EpiBeaconsApp.o: applications/dtn/epidemic/EpiBeaco
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -690,6 +702,7 @@ $O/applications/dtn/epidemic/EpidemicProtocol.o: applications/dtn/epidemic/Epide
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -732,6 +745,7 @@ $O/applications/dtn/msdp/DTNMsdp.o: applications/dtn/msdp/DTNMsdp.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -771,6 +785,7 @@ $O/applications/dtn/msdp/MSDPBeaconsApp.o: applications/dtn/msdp/MSDPBeaconsApp.
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -821,6 +836,7 @@ $O/applications/dtn/random/DTNRandom.o: applications/dtn/random/DTNRandom.cc \
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -856,6 +872,7 @@ $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBea
 	world/sumoNav/SumoNetwork.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
 	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \

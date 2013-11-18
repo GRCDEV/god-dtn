@@ -18,12 +18,12 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package inet.GRC.examples.beacons;
+package beacons;
 
 import inet.world.radio.ChannelControl;
 import inet.world.VACaMobil.VACaMobil;
 import inet.GRC.world.sumoNav.SumoNetwork;
-import inet.GRC.examples.navigator.Car;
+import navigator.Car;
 
 module Highway
 {

@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package inet.GRC.examples.Autopista;
+package Autopista;
 
 import inet.networklayer.autorouting.ipv4.FlatNetworkConfigurator;
 import inet.world.VACaMobil.VACaMobil;
