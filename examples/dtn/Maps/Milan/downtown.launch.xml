@@ -4,6 +4,6 @@
 	<copy file="downtown.sumo.xml" />
 	<copy file="downtown.routes.xml" />
 	<copy file="downtown.sumo.cfg" type="config" />
-	<basedir path="../3rdparty/GRC/examples/dtn/Maps/Milan/"/>
+	<basedir path="examples/dtn/Maps/Milan"/>
 </launch>
 

@@ -11,3 +11,4 @@ It allows to easily implement new one copy DTN protocols for VANET.
 In order to run god-dtn you need to have VACaMobil
 
 https://github.com/grclab/inet/tree/VACaMobil
+Testing
