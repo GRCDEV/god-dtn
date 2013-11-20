@@ -21,6 +21,7 @@
 package dtn;
 
 
+import inet.world.VACaMobil.RSUManager;
 import inet.world.radio.ChannelControl;
 import inet.world.obstacles.ObstacleControl;
 import inet.world.annotations.AnnotationManager;
@@ -54,6 +55,9 @@ network Highway
         }
         annotations: AnnotationManager {
             @display("p=61,280");
+        }
+        rsuManager: RSUManager {
+            @display("p=132,289");
         }
     connections allowunconnected:
 }

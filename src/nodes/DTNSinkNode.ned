@@ -61,6 +61,7 @@ module DTNSinkNode
         }
         mobility: StationaryMobility {
             parameters:
+                initFromDisplayString = false;
                 @display("p=60,459");
         }
         routingTable: RoutingTable {
