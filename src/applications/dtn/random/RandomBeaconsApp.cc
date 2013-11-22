@@ -36,7 +36,7 @@ void RandomBeaconsApp::addExtraInfo(BeaconPkt *beacon)
 void RandomBeaconsApp::readExtraInfo(BeaconPkt *beacon, Neighbor *neighbor, bool newNeigh)
 {
     /*
-     * No extra info is contained in beacons but distance is calculated and stored.
+     * No extra info is contained in beacons but a random value between 0 and 1 is assigned
      */
     RandomNeighbor *rndNeigh = dynamic_cast<RandomNeighbor*>(neighbor);
     ASSERT(rndNeigh != NULL);

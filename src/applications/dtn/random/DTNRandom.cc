@@ -33,6 +33,7 @@ void DTNRandom::initialize(int stage)
         return;
     }
     minP = par("minP").doubleValue();
+    sortedNeighbors = new std::set<Neighbor *, std::function<bool(Neighbor* const&, Neighbor* const&)> > (randomComparator());
 }
 
 bool DTNRandom::isBetterThanMe(Neighbor *neighbor)
