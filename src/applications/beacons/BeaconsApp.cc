@@ -60,6 +60,9 @@ void BeaconsApp::initialize(int stage) {
         cMessage *msg = new cMessage("NEXT_BEACON");
         msg->setKind(NEW_BEACON);
         interBeaconTime = par("beaconTime").doubleValue();
+        newNeighbor = registerSignal("newNeighbor");
+        rmNeighbor = registerSignal("rmNeighbor");
+
         scheduleAt(simTime()+par("phaseTime")+interBeaconTime, msg);
     }
 }
@@ -75,6 +78,7 @@ void BeaconsApp::handleMessage(cMessage *msg) {
             std::map<uint64, Neighbor *>::iterator i = neighborsList.find(*id);
             ASSERT(i!=neighborsList.end());
             Neighbor *neigh = (i->second);
+            emit(rmNeighbor, id);
             informRemoveNeighborSubscribers(neigh);
             neighborsList.erase(*id);
             msgMap.erase(*id);
@@ -134,6 +138,7 @@ void BeaconsApp::processBeacon(BeaconPkt *beacon){
         msg->setKind(REMOVE_NEIGH);
         msg->setContextPointer(id);
         msgMap.insert(std::pair<uint64, cMessage*>({*id, msg}));
+        emit(this->newNeighbor, id);
     }
 
     neighbor->setId(*id);

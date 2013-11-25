@@ -27,6 +27,10 @@ simple BeaconsApp like IUDPApp{
     	volatile double jitterTime @unit(s) = default(uniform(-5ms,5ms));
     	string interface = default("wlan");
     	string serviceInterface = default("wlan");
+    	@signal[newNeighbor](type="integer");
+        @statistic[NewNeighbor](title="New Neighbor Detected";source="newNeighbor"; record=count, vector);
+        @signal[rmNeighbor](type="integer");
+        @statistic[RmNeighbor](title="Neighbor Removed";source="rmNeighbor"; record=count, vector);
    	gates:
    	    output 	udpOut;
    	    input	udpIn;

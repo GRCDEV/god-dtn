@@ -82,6 +82,10 @@ class BeaconsApp : public cSimpleModule
     uint64 myId;
     std::list<BeaconSubscriber*> subscriberList;
     std::map<uint64, cMessage *> msgMap;
+
+    simsignal_t newNeighbor;
+    simsignal_t rmNeighbor;
+
     void sendNewBeacon(void);
     void processBeacon(BeaconPkt *beacon);
     /*
