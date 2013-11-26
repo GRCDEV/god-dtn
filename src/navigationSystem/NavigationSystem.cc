@@ -34,6 +34,10 @@ void NavigationSystem::initialize(int stage)
     {
         return;
     }
+
+    /*Test Absurdo*/
+    //std::vector<Coord> test = getIntersection(Coord(5,1), Coord(5,4), Coord(5,1), 5 );
+
     debug = par("debug");
     mobility = ModuleAccess<TraCIMobility>("mobility").get();
     traciId = mobility->getExternalId();
@@ -282,10 +286,10 @@ double NavigationSystem::getDurationNextTxOpportunity()
          * Subtract the non-traversed part of the last edge
          */
         if( startEdge == (txOp->edgeList.end()-1)){
-            double length = network->getEdgeLength(*startEdge)-txOp->startPos;
+            double length = network->getEdgeLength(*startEdge)-txOp->endPos;
             double speed = network->getEdgeMaxSpeed(*startEdge);
             time -=  length/ speed;
-            ASSERT(length > 0 && speed > 0 && time > 0);
+            ASSERT(length >= 0 && speed > 0 && time >= 0);
         }
     }
     return time;
@@ -389,32 +393,56 @@ bool NavigationSystem::parsePOA()
     return true;
 }
 
-std::vector<Coord> NavigationSystem::getIntersection(Coord coord0, Coord coord1, Coord center, double radius)
+std::vector<Coord> NavigationSystem::getIntersection(Coord from, Coord to, Coord center, double R)
 {
     Enter_Method_Silent();
-    double m = (coord1.y-coord0.y) /(coord1.x-coord0.x); //Step of the segment
-    double alpha = m*coord0.x-coord0.y;
-    std::vector<Coord> out;
-
-    //Solve the equation
-
-    double a = m*m+1;
-    double b = -2*m*alpha-2*center.x-2*m*center.y;
-    double c = center.x*center.x +alpha*alpha+center.y*center.y+2*center.y*alpha-radius*radius;
-
-    if((b*b-4*a*c) < 0 )
-    {
-        return out;
+    double m = 0;
+    bool vertical=false;
+    if(to.x != from.x){
+     m = (to.y-from.y) / (to.x-from.x); //Step of the segment
+     vertical = false;
     }
-
+    else {
+        vertical = true;
+    }
+    std::vector<Coord> out;
     Coord point1;
-    point1.x=(-b + sqrt(b*b-4*a*c))/(2*a);
-    point1.y=m*point1.x-alpha;
     Coord point2;
-    point2.x=(-b - sqrt(b*b-4*a*c))/(2*a);
-    point2.y=m*point1.x-alpha;
+    //Solve the system
+    // y= mx+alpha
+    // (x_0-x)^2+(y_0-y)^2 = r^2
+    if(!vertical){
+        double alpha = from.y-m*from.x;
+        double a = m*m+1;
+        double b = 2*m*alpha - 2*center.x - 2*m*center.y;
+        double c = center.x*center.x +alpha*alpha+center.y*center.y - 2*center.y*alpha - R*R;
+
+        if((b*b - 4*a*c) < 0 )
+        {
+            return out;
+        }
 
 
+        point1.x = (-b + sqrt(b*b-4*a*c)) / (2*a);
+        point1.y = m*point1.x+alpha;
+
+        point2.x = (-b - sqrt(b*b-4*a*c)) / (2*a);
+        point2.y = m*point2.x+alpha;
+    }
+    else{
+        point1.x = point2.x = from.x;
+        double a = 1;
+        double b = -2*center.y;
+        double c = from.x*from.x - 2*from.x*center.x + to.x*to.x + center.y*center.y - R*R;
+
+        if((b*b-4*a*c) < 0 )
+        {
+            return out;
+        }
+
+        point1.y = (-b + sqrt(b*b-4*a*c))/(2*a);
+        point2.y = (-b - sqrt(b*b-4*a*c))/(2*a);
+    }
     out.push_back(point1);
     out.push_back(point2);
     return out;

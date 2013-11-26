@@ -145,7 +145,6 @@ private:
 
     //Intersection between a segment defined by coord0 and coord1 and a circumference defined by
     //center and radius
-    //return number of points in result [0,1,2]
     std::vector<Coord> getIntersection(Coord Coord0, Coord Coord1, Coord center, double radius);
 
     //Get the distance between a segment and a point
