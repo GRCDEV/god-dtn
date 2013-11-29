@@ -35,9 +35,6 @@ void NavigationSystem::initialize(int stage)
         return;
     }
 
-    /*Test Absurdo*/
-    //std::vector<Coord> test = getIntersection(Coord(5,1), Coord(5,4), Coord(5,1), 5 );
-
     debug = par("debug");
     mobility = ModuleAccess<TraCIMobility>("mobility").get();
     traciId = mobility->getExternalId();
@@ -47,7 +44,6 @@ void NavigationSystem::initialize(int stage)
     inTxOp = false;
     nSpeed = 0;
     avgSpeedWindow = par("avgSpeedWindow");
-    speedMeasurements = new double[avgSpeedWindow];
     updateRoute();
     registerSignals();
     updateStatus();
@@ -86,7 +82,6 @@ void NavigationSystem::registerSignals()
     //Traci signal registration
     mobilityStateChangedSignal = registerSignal("mobilityStateChanged");
     mobility->subscribe(mobilityStateChangedSignal, this);
-
 }
 
 void NavigationSystem::finish()
@@ -103,6 +98,9 @@ double NavigationSystem::getDistanceNextTxOpportunity()
 
     const TxOp *txOp = getNextTxOp();
     Coord currentLoc = getCurrentPosition();
+    if(txOp == NULL){
+        return FLT_MAX;
+    }
 
     if(txOp == nextTxOpCache.nextTxOp && nextTxOpCache.lastLocation == currentLoc){
         return nextTxOpCache.distance;
@@ -116,24 +114,30 @@ double NavigationSystem::getDistanceNextTxOpportunity()
     else{
         currentPos = manager->commandGetLanePosition(traciId);
     }
+
     double distance;
 
-    if(txOp == NULL){
-        distance = FLT_MAX;
-        return distance;
-    }
 
     std::string startEdge = txOp->edgeList.front();
-
+    /*If it is currently connected, return 0*/
     if( checkCoverage( currentLoc , NULL) ){
-        return 0;
+        distance = 0;
     }
+    /*If current edge is equal to the first edge of the opportunity
+     * return the distance from the current pos to the start pos.
+     */
     else if(leftEdge.at(0) == startEdge){
         if(txOp->startPos < currentPos){
-            return 0;
+            distance = 0;
         }
-        return txOp->startPos-currentPos;
+        distance = txOp->startPos-currentPos;
     }
+    /*
+     * In any other case:
+     * Sum the rest of the current edge
+     * Sum the length of every edge in the route until i==startEdge
+     * Sum the portion of the previous edge.
+     */
     else {
         distance = network->getEdgeLength(leftEdge.at(0))-currentPos;
         for(std::vector<std::string>::const_iterator i=(leftEdge.begin()+1); i!= leftEdge.end() && (*i) != startEdge ; i++){
@@ -142,8 +146,9 @@ double NavigationSystem::getDistanceNextTxOpportunity()
             }
             distance+=(network-> getEdgeLength(*i));
         }
+        distance+= distance+txOp->startPos;
     }
-    nextTxOpCache.distance = distance+txOp->startPos;
+    nextTxOpCache.distance = distance;
     nextTxOpCache.lastLocation = currentLoc;
     return nextTxOpCache.distance;
 }
@@ -688,9 +693,7 @@ void NavigationSystem::updateStatus()
     avgSpeed = (avgSpeed*nSpeed + mobility->getSpeed())/(nSpeed+1);
     nSpeed++;
     speedMeasurements[nSpeed%avgSpeedWindow] = mobility->getSpeed();
-
     lastUpdate = simTime();
-
 
     bool connected=checkCoverage(getCurrentPosition(), &currentAp);
 
@@ -711,7 +714,6 @@ void NavigationSystem::updateStatus()
 
 Coord NavigationSystem::getNearestPointInRouteToPoa(double &timeToArrive, double &distance, double &avgSpeed)
 {
-
     if(NPCache.previousDistance != 0 && NPCache.lastRouteId == routeId){
         distance = NPCache.previousDistance;
         avgSpeed = NPCache.previousAvgSpeed;
@@ -836,8 +838,8 @@ Coord NavigationSystem::getNearestPointInRouteToPoa(double &timeToArrive, double
     NPCache.lastRouteId = routeId;
     NPCache.previousPos = lastPosition;
     NPCache.previousCall = simTime();
-    NPCache.previousBestPoint = manager->traci2omnet(TraCIScenarioManager::TraCICoord(nearestPoint.x, nearestPoint.y));
     //Convert from TraciCoord to Coord
+    NPCache.previousBestPoint = manager->traci2omnet(TraCIScenarioManager::TraCICoord(nearestPoint.x, nearestPoint.y));
     return NPCache.previousBestPoint;
 }
 

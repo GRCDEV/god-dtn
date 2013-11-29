@@ -66,6 +66,9 @@ public:
         double  time;
     } nextTxOpCache;
 
+    /*
+     * This class assumes circular coverage areas
+     */
     //Return the distance in meters to next transmission opportunity.
     double getDistanceNextTxOpportunity();
 
@@ -175,7 +178,7 @@ private:
     double avgSpeed;
     uint   nSpeed;
     uint avgSpeedWindow;
-    double *speedMeasurements;
+    std::vector<double> speedMeasurements;
     simtime_t lastUpdate;
     Ap *currentAp;
     std::vector<Ap> poaList;

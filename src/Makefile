@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for libgod-dtn
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
+#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -I../../inet/src/world/VACaMobil -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -49,6 +49,7 @@ INCLUDE_PATH = \
     -I../../inet/src/transport/tcp_common \
     -I../../inet/src/networklayer/arp \
     -I../../inet/src/transport/udp \
+    -I../../inet/src/world/VACaMobil \
     -I. \
     -IPruebas \
     -IPruebas/beacons \
@@ -958,7 +959,15 @@ $O/mobility/movStats/Listener.o: mobility/movStats/Listener.cc \
 	$(INET_PROJ)/src/util/FWMath.h
 $O/mobility/movStats/MovStats.o: mobility/movStats/MovStats.cc \
 	mobility/movStats/Listener.h \
-	mobility/movStats/MovStats.h
+	mobility/movStats/MovStats.h \
+	$(INET_PROJ)/src/base/Coord.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/ModuleAccess.h \
+	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/MovStats.h \
+	$(INET_PROJ)/src/world/VACaMobil/VACaMobil.h \
+	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h \
+	$(INET_PROJ)/src/world/traci/TraCIScenarioManagerLaunchd.h
 $O/navigationSystem/NavigationSystem.o: navigationSystem/NavigationSystem.cc \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
