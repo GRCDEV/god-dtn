@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for libgod-dtn
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -I../../inet/src/world/VACaMobil -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
+#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -49,7 +49,6 @@ INCLUDE_PATH = \
     -I../../inet/src/transport/tcp_common \
     -I../../inet/src/networklayer/arp \
     -I../../inet/src/transport/udp \
-    -I../../inet/src/world/VACaMobil \
     -I. \
     -IPruebas \
     -IPruebas/beacons \
@@ -71,8 +70,6 @@ INCLUDE_PATH = \
     -Ietc/DataAnalisys/dtn/Scripts/processing \
     -Ilinklayer \
     -Ilinklayer/Ideal \
-    -Imobility \
-    -Imobility/movStats \
     -InavigationSystem \
     -Inodes \
     -Itools \
@@ -119,8 +116,6 @@ OBJS = \
     $O/applications/dtn/random/RandomNeighbor.o \
     $O/applications/sumo/NavClient.o \
     $O/linklayer/Ideal/IdealMacRadio.o \
-    $O/mobility/movStats/Listener.o \
-    $O/mobility/movStats/MovStats.o \
     $O/navigationSystem/NavigationSystem.o \
     $O/world/sumoNav/SumoNetwork.o \
     $O/applications/beacons/BeaconPkt_m.o \
@@ -236,8 +231,6 @@ clean:
 	$(Q)-rm -f etc/DataAnalisys/dtn/Scripts/processing/*_m.cc etc/DataAnalisys/dtn/Scripts/processing/*_m.h
 	$(Q)-rm -f linklayer/*_m.cc linklayer/*_m.h
 	$(Q)-rm -f linklayer/Ideal/*_m.cc linklayer/Ideal/*_m.h
-	$(Q)-rm -f mobility/*_m.cc mobility/*_m.h
-	$(Q)-rm -f mobility/movStats/*_m.cc mobility/movStats/*_m.h
 	$(Q)-rm -f navigationSystem/*_m.cc navigationSystem/*_m.h
 	$(Q)-rm -f nodes/*_m.cc nodes/*_m.h
 	$(Q)-rm -f tools/*_m.cc tools/*_m.h
@@ -251,7 +244,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc Pruebas/*.cc Pruebas/beacons/*.cc applications/*.cc applications/beacons/*.cc applications/dtn/*.cc applications/dtn/GeOpps/*.cc applications/dtn/direct/*.cc applications/dtn/distance/*.cc applications/dtn/epidemic/*.cc applications/dtn/msdp/*.cc applications/dtn/random/*.cc applications/sumo/*.cc etc/*.cc etc/DataAnalisys/*.cc etc/DataAnalisys/dtn/*.cc etc/DataAnalisys/dtn/Scripts/*.cc etc/DataAnalisys/dtn/Scripts/Ploting/*.cc etc/DataAnalisys/dtn/Scripts/processing/*.cc linklayer/*.cc linklayer/Ideal/*.cc mobility/*.cc mobility/movStats/*.cc navigationSystem/*.cc nodes/*.cc tools/*.cc tools/osmParser/*.cc tools/osmParser/lib/*.cc world/*.cc world/sumoNav/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc Pruebas/*.cc Pruebas/beacons/*.cc applications/*.cc applications/beacons/*.cc applications/dtn/*.cc applications/dtn/GeOpps/*.cc applications/dtn/direct/*.cc applications/dtn/distance/*.cc applications/dtn/epidemic/*.cc applications/dtn/msdp/*.cc applications/dtn/random/*.cc applications/sumo/*.cc etc/*.cc etc/DataAnalisys/*.cc etc/DataAnalisys/dtn/*.cc etc/DataAnalisys/dtn/Scripts/*.cc etc/DataAnalisys/dtn/Scripts/Ploting/*.cc etc/DataAnalisys/dtn/Scripts/processing/*.cc linklayer/*.cc linklayer/Ideal/*.cc navigationSystem/*.cc nodes/*.cc tools/*.cc tools/osmParser/*.cc tools/osmParser/lib/*.cc world/*.cc world/sumoNav/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/applications/beacons/BeaconPkt_m.o: applications/beacons/BeaconPkt_m.cc \
@@ -945,29 +938,6 @@ $O/linklayer/Ideal/IdealMacRadio.o: linklayer/Ideal/IdealMacRadio.cc \
 	$(INET_PROJ)/src/world/radio/ChannelAccess.h \
 	$(INET_PROJ)/src/world/radio/ChannelControl.h \
 	$(INET_PROJ)/src/world/radio/IChannelControl.h
-$O/mobility/movStats/Listener.o: mobility/movStats/Listener.cc \
-	mobility/movStats/Listener.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
-	$(INET_PROJ)/src/base/Coord.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/base/INotifiable.h \
-	$(INET_PROJ)/src/base/ModuleAccess.h \
-	$(INET_PROJ)/src/base/NotificationBoard.h \
-	$(INET_PROJ)/src/base/NotifierConsts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/util/FWMath.h
-$O/mobility/movStats/MovStats.o: mobility/movStats/MovStats.cc \
-	mobility/movStats/Listener.h \
-	mobility/movStats/MovStats.h \
-	$(INET_PROJ)/src/base/Coord.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/base/ModuleAccess.h \
-	$(INET_PROJ)/src/util/FWMath.h \
-	$(INET_PROJ)/src/world/VACaMobil/MovStats.h \
-	$(INET_PROJ)/src/world/VACaMobil/VACaMobil.h \
-	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h \
-	$(INET_PROJ)/src/world/traci/TraCIScenarioManagerLaunchd.h
 $O/navigationSystem/NavigationSystem.o: navigationSystem/NavigationSystem.cc \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \

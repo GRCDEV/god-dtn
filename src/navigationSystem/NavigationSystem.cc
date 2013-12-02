@@ -44,6 +44,7 @@ void NavigationSystem::initialize(int stage)
     inTxOp = false;
     nSpeed = 0;
     avgSpeedWindow = par("avgSpeedWindow");
+    speedMeasurements.resize(avgSpeedWindow);
     updateRoute();
     registerSignals();
     updateStatus();
