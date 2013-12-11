@@ -171,10 +171,6 @@ private:
     bool checkCoverage(Coord coord, Ap **ap);
 
     /*
-     * Sort TxOps according to their first edge index in edgelist
-     */
-    void sortTxOps();
-    /*
      * Remove overlapped TxOps
      */
     void purgeTxOps();

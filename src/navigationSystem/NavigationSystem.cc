@@ -615,12 +615,7 @@ void NavigationSystem::updateRoute()
      * After finding all the transmission opportunities
      * sort them and remove those that overlap
      */
-    sortTxOps();
     purgeTxOps();
-}
-
-void NavigationSystem::sortTxOps(){
-
 }
 
 void NavigationSystem::purgeTxOps(){
@@ -632,7 +627,7 @@ void NavigationSystem::purgeTxOps(){
         TxOp *txOp1 = *i;
         bool modified = false;
         for( std::list<TxOp *>::iterator j = oportunities.begin(); j!= oportunities.end();){
-
+            bool removed = false;
             if( j == i  ){
                 j++;
                 continue;
@@ -708,6 +703,7 @@ void NavigationSystem::purgeTxOps(){
                          * Iterate again over the modified opportunity
                          */
                         modified = true;
+                        removed = true;
                         break; //Stop iterating over this TxOp2
                     }
                     else{
@@ -717,7 +713,7 @@ void NavigationSystem::purgeTxOps(){
                     }
                 }//If equal edges
             }//For every edge
-            if(!modified){
+            if(!removed){
                 /*
                  * If we removed j now j already points to the next element
                  */
