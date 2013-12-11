@@ -46,7 +46,7 @@ void NavClient::test(){
 
     for(std::list<NavigationSystem::TxOp*>::const_iterator i= opportunities.begin(); i!= opportunities.end(); i++)
     {
-        EV<<"AP"<<(*i)->ap->id<<" Length:"<<(*i)->length<<"startPos"<<(*i)->endPos<<endl;
+        EV<<"AP"<<(*i)->ap.front()->id<<" Length:"<<(*i)->totalLength<<"startPos"<<(*i)->endPos<<endl;
 
     }
 

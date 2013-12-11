@@ -475,31 +475,28 @@ void NavigationSystem::updateRoute()
     edgeList.clear();
     lastEdgeIndex = 0;
 
-    bool connected=false;
-    bool started = false;
-    for(std::list<std::string>::const_iterator i= route.begin(); i!= route.end(); i++)
-    {
-        std::string edgeId=*i;
-        if(currentEdge != edgeId && started == false )
-        {
-        }
-        else {
-            started = true;
-        }
-        edgeList.push_back(edgeId);
-        std::vector<TraCIScenarioManager::TraCICoord> shape = network->getEdgeShape(edgeId);
-        std::vector<TraCIScenarioManager::TraCICoord>::const_iterator j = shape.begin();
-        j++;
-        for(std::vector<TraCIScenarioManager::TraCICoord>::const_iterator previous=shape.begin(); j!=shape.end(); j++, previous++)
-        {
-            TraCIScenarioManager::TraCICoord traciFrom = *previous;
-            TraCIScenarioManager::TraCICoord traciTo = *j;
 
-            Coord from = manager->traci2omnet(traciFrom);
-            Coord to = manager-> traci2omnet(traciTo);
-            for(uint k=0; k< poaList.size();k++)
+    for(uint k=0; k< poaList.size();k++)
+    {
+        bool connected=false;
+        Ap ap = poaList[k];
+        for(std::list<std::string>::const_iterator i= route.begin(); i!= route.end(); i++)
+        {
+            std::string edgeId=*i;
+            if( k == 0 ){
+                edgeList.push_back(edgeId);
+            }
+            std::vector<TraCIScenarioManager::TraCICoord> shape = network->getEdgeShape(edgeId);
+            std::vector<TraCIScenarioManager::TraCICoord>::const_iterator j = shape.begin();
+            j++;
+            for(std::vector<TraCIScenarioManager::TraCICoord>::const_iterator previous=shape.begin(); j!=shape.end(); j++, previous++)
             {
-                Ap ap = poaList[k];
+                TraCIScenarioManager::TraCICoord traciFrom = *previous;
+                TraCIScenarioManager::TraCICoord traciTo = *j;
+
+                Coord from = manager->traci2omnet(traciFrom);
+                Coord to = manager-> traci2omnet(traciTo);
+
                 Coord nearestPoint;
                 double distance = getDistance(from, to, ap.omnetPosition, nearestPoint);
                 //part of the segment is under the coverage of an AP
@@ -510,7 +507,8 @@ void NavigationSystem::updateRoute()
                     {
                         txOp= new TxOp;
                         txOp->startPos=0;
-                        txOp->length=0;
+                        txOp->totalLength=0;
+                        txOp->ap.push_back(&poaList[k]);
                         oportunities.push_back(txOp);
                     }
                     else
@@ -518,7 +516,6 @@ void NavigationSystem::updateRoute()
                         txOp = oportunities.back();
                     }
 
-                    txOp->ap = &poaList[k];
                     txOp->endPos = network->getEdgeLength(edgeId);
                     if(txOp->edgeList.empty() || txOp->edgeList.back() != edgeId)
                     {
@@ -536,7 +533,7 @@ void NavigationSystem::updateRoute()
                         ASSERT(!connected);
                         //This opportunity starts and ends during this segment.
 
-                        txOp->length = intersection[0].distance(intersection[1]);
+                        txOp->totalLength = intersection[0].distance(intersection[1]);
 
                         if(intersection[0].distance(from) < intersection[1].distance(from))
                         {
@@ -553,6 +550,7 @@ void NavigationSystem::updateRoute()
                     }
                     else if(to.sqrdist(ap.omnetPosition) > ap.sqrRange && from.sqrdist(ap.omnetPosition) < ap.sqrRange)
                     {
+                        //ASSERT(connected);
                         // from O+++++++X-----O to
                         //This opportunity ends during this segment
                         double dist0 = from.distance(intersection[0]);
@@ -560,7 +558,7 @@ void NavigationSystem::updateRoute()
                         double dist;
 
                         if( dist0+to.distance(intersection[0]) <
-                            dist1+to.distance(intersection[1]) )
+                                dist1+to.distance(intersection[1]) )
                         {
                             dist=dist0;
                         }
@@ -569,12 +567,13 @@ void NavigationSystem::updateRoute()
                             dist=dist1;
                         }
 
-                        txOp->length += dist;
+                        txOp->totalLength += dist;
                         txOp->endPos = dist;
                         connected=false;
                     }
                     else if(to.sqrdist(ap.omnetPosition) < ap.sqrRange && from.sqrdist(ap.omnetPosition)  > ap.sqrRange)
                     {
+                        ASSERT(!connected);
                         // from O----X+++++++++O to
                         //This opportunity starts in this segment
                         double dist0 = to.distance(intersection[0]);
@@ -593,23 +592,145 @@ void NavigationSystem::updateRoute()
                             txOp->startPos = from.distance(intersection[1]);
                         }
 
-                        txOp->length = dist;
+                        txOp->totalLength = dist;
                         connected=true;
                     }
                     else
                     {
+                        //ASSERT(connected);
                         // from O+++++++++++O to
                         //The whole segment is under the coverage of the AP
-                        txOp->length += from.distance(to);
+                        txOp->totalLength += from.distance(to);
                         connected=true;
                     }
+                }
+                else {
+                    connected = false;
                 }
             }
         }
     }
 
+    /*
+     * After finding all the transmission opportunities
+     * sort them and remove those that overlap
+     */
+    sortTxOps();
+    purgeTxOps();
+}
 
+void NavigationSystem::sortTxOps(){
 
+}
+
+void NavigationSystem::purgeTxOps(){
+    /*
+     * To overlap, two TxOp must have at least 1 edge in common
+     * For every TxOp, check if the first edge of any other TxOp is inside its edgeList
+     */
+    for( std::list<TxOp *>::iterator i=oportunities.begin(); i!= oportunities.end();){
+        TxOp *txOp1 = *i;
+        bool modified = false;
+        for( std::list<TxOp *>::iterator j = oportunities.begin(); j!= oportunities.end();){
+
+            if( j == i  ){
+                j++;
+                continue;
+            }
+
+            TxOp *txOp2 = *j;
+            for( std::vector<std::string>::iterator edge_it = txOp1->edgeList.begin(); edge_it != txOp1->edgeList.end(); edge_it++){
+                std::string edge1Id = *edge_it;
+                std::vector<std::string>::iterator edge2_it = txOp2->edgeList.begin();
+                std::string edge2Id = *edge2_it;
+                /*
+                 * This edge appears in both TxOp.
+                 */
+                if(edge1Id == edge2Id){
+                    /*
+                     * check if the first TxOp ends before the second TxOp starts
+                     */
+                    if(!(edge1Id == txOp1->edgeList.back() && txOp1->endPos < txOp2->startPos ) ){
+                        double overlapLength = 0;
+                        /*
+                         * This is the last edge of the first TxOp but txOp1 ends after txOp2 starts
+                         */
+                        if(edge1Id == txOp1->edgeList.back() && txOp1->endPos > txOp2->startPos ){
+                            overlapLength = txOp1->endPos - txOp2->startPos;
+                            txOp1->totalLength += txOp2->totalLength - overlapLength;
+                            txOp1->edgeList.insert(txOp1->edgeList.end(), ++edge2_it, txOp2->edgeList.end());
+                        }
+                        else{
+                            overlapLength = network->getEdgeLength(edge1Id) - txOp2->startPos;
+                            ++edge_it;
+                            ++edge2_it;
+                            while(edge_it != txOp1->edgeList.end() && edge2_it != txOp2->edgeList.end()){
+                                edge1Id = *edge_it;
+                                edge2Id = *edge2_it;
+                                if(edge1Id == edge2Id){
+                                    overlapLength += network->getEdgeLength(edge1Id);
+                                    edge_it++;
+                                    edge2_it++;
+                                }
+                                else{
+                                    break;
+                                }
+                            }
+
+                            if(edge1Id == txOp1->edgeList.back()){
+                                /*
+                                 * first opportunity has finished, second continues
+                                 */
+                                overlapLength -= (network->getEdgeLength(edge1Id)- txOp1->endPos);
+                                /*
+                                 * increase the length of the first opportunity
+                                 */
+                                txOp1->totalLength = txOp1->totalLength - overlapLength + txOp2->totalLength;
+                                txOp1->endPos = txOp2->endPos;
+                                txOp1->edgeList.insert(txOp1->edgeList.end(), edge2_it, txOp2->edgeList.end());
+                            }
+                            else if(edge2Id == txOp2->edgeList.back()){
+                                /*
+                                 * second opportunity is inside first opportunity
+                                 * we only need to remove the second opportunity
+                                 */
+                            }
+                            else{
+                                ASSERT("One of the opportunities must finish in this edge");
+                            }
+                        }
+                        /*
+                         * We remove the second opportunity
+                         */
+                        delete *j;
+                        j = oportunities.erase(j);
+                        /*
+                         * Iterate again over the modified opportunity
+                         */
+                        modified = true;
+                        break; //Stop iterating over this TxOp2
+                    }
+                    else{
+                        /*
+                         * They do not overlap
+                         */
+                    }
+                }//If equal edges
+            }//For every edge
+            if(!modified){
+                /*
+                 * If we removed j now j already points to the next element
+                 */
+                j++;
+            }
+        }//For every TxOp
+        if(!modified){
+            /*
+             * If we didn't modified this TxOp, we can iterate over the next one
+             */
+            i++;
+        }
+    }
 }
 
 double NavigationSystem::getDistance(Coord coord0, Coord coord1, Coord coord3, Coord &nearestPoint)
@@ -704,7 +825,7 @@ void NavigationSystem::updateStatus()
         oportunities.pop_front();
     }
 
-    if(connected == true && !oportunities.empty() && currentAp->id == oportunities.front()->ap->id){
+    if(connected == true && !oportunities.empty() && currentAp->id == oportunities.front()->ap.front()->id){
         inTxOp = connected;
     }
     else {
@@ -875,15 +996,20 @@ double NavigationSystem::getAverageSpeed() const
 
 const std::list<NavigationSystem::Ap> NavigationSystem::getPoasSortedByDistance() const
 {
+    return getPoasSortedByDistance(lastPosition);
+}
+
+const std::list<NavigationSystem::Ap> NavigationSystem::getPoasSortedByDistance(Coord location) const
+{
     std::list<NavigationSystem::Ap> sortedList;
     std::vector<NavigationSystem::Ap> poaList = getPoaList();
     sortedList.push_back(*poaList.begin());
     for(uint i=1; i < poaList.size(); i++){
         NavigationSystem::Ap poa = poaList.at(i);
-        double sqrDistance = poa.omnetPosition.sqrdist(lastPosition);
+        double sqrDistance = poa.omnetPosition.sqrdist(location);
         bool inserted = false;
         for(std::list<NavigationSystem::Ap>::iterator j=sortedList.begin(); j != sortedList.end(); j++){
-            if(sqrDistance < (j->omnetPosition.sqrdist(lastPosition) ) ){
+            if(sqrDistance < (j->omnetPosition.sqrdist(location) ) ){
                 sortedList.insert(j, poa);
                 inserted = true;
                 break;
@@ -895,6 +1021,7 @@ const std::list<NavigationSystem::Ap> NavigationSystem::getPoasSortedByDistance(
     }
     return sortedList;
 }
+
 
 /*Check the coverage of current position, store the current ap in ap*/
 bool NavigationSystem::checkCoverage(Coord coord, Ap **ap)
@@ -923,7 +1050,9 @@ const std::list<std::string> NavigationSystem::getPoas() const
     std::list<std::string> poas;
     for(std::list<NavigationSystem::TxOp*>::const_iterator i= oportunities.begin();i!=oportunities.end(); i++)
     {
-        poas.push_back((*i)->ap->id);
+        TxOp *txOp = *i;
+        for(std::vector<Ap*>::iterator j = txOp->ap.begin(); j!=txOp->ap.end(); j++ )
+        poas.push_back((*j)->id);
     }
     return poas;
 }

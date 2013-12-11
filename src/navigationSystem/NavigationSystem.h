@@ -44,8 +44,9 @@ public:
         std::vector<std::string> edgeList;
         double startPos;
         double endPos;
-        double length;
-        Ap* ap;
+        double totalLength;
+        std::vector<Ap*> ap;//a TxOp may contain several AP
+        std::vector<double> segmentsLength;//length of every segment covered by a different AP
     }TxOp;
 
     NavigationSystem();
@@ -141,6 +142,8 @@ public:
      */
     const std::list <NavigationSystem::Ap> getPoasSortedByDistance() const;
 
+    const std::list <NavigationSystem::Ap> getPoasSortedByDistance(Coord location) const;
+
     double getAverageSpeed() const;
 private:
     //Parse POA xml file, return false if not defined.
@@ -166,6 +169,15 @@ private:
     void registerSignals();
 
     bool checkCoverage(Coord coord, Ap **ap);
+
+    /*
+     * Sort TxOps according to their first edge index in edgelist
+     */
+    void sortTxOps();
+    /*
+     * Remove overlapped TxOps
+     */
+    void purgeTxOps();
 
     std::string traciId;
     std::string routeId;
