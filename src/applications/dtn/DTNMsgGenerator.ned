@@ -19,7 +19,7 @@ package inet.GRC.applications.dtn;
 simple DTNMsgGenerator
 {
     parameters:
-        int numberOfMessages = default(-1); //-1 infinites packets, 0 no packets
+        int numberOfMessages = default(-1); //-1 infinite packets, 0 no packets
         double phaseTime @unit(seconds) = default(uniform(0s,10s));
         volatile double msgSize @unit(Byte) = default(2KiB);
         volatile double interMsgTime @unit(seconds) = default(0s);
