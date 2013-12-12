@@ -135,6 +135,10 @@ private:
      * Whether use broadcast or not
      */
     bool useBroadcast;
+    /*
+     * amount of redundancy added to messages
+     */
+    double redundancy;
     simsignal_t fragmentGenerated;
     simsignal_t dataTx;
     simsignal_t directDataTx;

@@ -32,7 +32,8 @@ void DtnOneCopyProtocol::sendMessage(uint64 destId, uint64 msgId, bool broadcast
 {
     Enter_Method("sendMessage()");
     uint n = ceil(length / (fragmentSize-sizeof(DTNFragment)));
-    for(uint32 i=0; i<n ; i++){
+    uint N = ceil(n*redundancy);
+    for(uint32 i=0; i<N ; i++){
         DTNFragment fragment;
         fragment.dstId = destId;
         fragment.srcId = myId;
@@ -136,6 +137,7 @@ void DtnOneCopyProtocol::initialize(int stage)
         destPort = DTN_PORT;
         fragmentSize = par("fragmentSize");
         useBroadcast = par("useBroadcast").boolValue();
+        redundancy = par("redundancy").doubleValue();
         //Obtain the broadcast interface
         IInterfaceTable *ift = InterfaceTableAccess().get();
         InterfaceEntry *ie = ift->getInterfaceByName(par("wirelessIf").stringValue());

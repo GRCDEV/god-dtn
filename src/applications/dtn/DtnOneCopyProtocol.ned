@@ -22,6 +22,7 @@ moduleinterface DtnOneCopyProtocol extends IUDPApp
         @display("i=block/app");
         string wirelessIf;
         double ackTimeOut @unit(seconds);
+        double redundancy;
         int windowSize;
         int bitrate @unit(bits);
         int maxHops;
