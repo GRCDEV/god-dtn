@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for libgod-dtn
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
+#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/world/VACaMobil -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$(CONFIGNAME)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -23,6 +23,7 @@ INCLUDE_PATH = \
     -I../../inet/src/mobility \
     -I../../inet/src/networklayer/autorouting/ipv4 \
     -I../../inet/src/linklayer/ieee80211/mgmt \
+    -I../../inet/src/world/VACaMobil \
     -I../../inet/src/util \
     -I../../inet/src/transport/contract \
     -I../../inet/src/linklayer/common \
@@ -282,6 +283,7 @@ $O/applications/beacons/BeaconsApp.o: applications/beacons/BeaconsApp.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/beacons/Neighbor.o: applications/beacons/Neighbor.cc \
 	applications/beacons/Neighbor.h \
@@ -330,6 +332,7 @@ $O/applications/dtn/BackBoneApp.o: applications/dtn/BackBoneApp.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/DTNDataMsg_m.o: applications/dtn/DTNDataMsg_m.cc \
 	applications/dtn/DTNDataMsg_m.h \
@@ -375,6 +378,7 @@ $O/applications/dtn/DtnOneCopyProtocol.o: applications/dtn/DtnOneCopyProtocol.cc
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/SinkApp.o: applications/dtn/SinkApp.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -416,6 +420,7 @@ $O/applications/dtn/SinkApp.o: applications/dtn/SinkApp.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/GeOpps/DTNGeOpps.o: applications/dtn/GeOpps/DTNGeOpps.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -457,6 +462,7 @@ $O/applications/dtn/GeOpps/DTNGeOpps.o: applications/dtn/GeOpps/DTNGeOpps.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/GeOpps/GeOppsBeaconsApp.o: applications/dtn/GeOpps/GeOppsBeaconsApp.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -494,6 +500,7 @@ $O/applications/dtn/GeOpps/GeOppsBeaconsApp.o: applications/dtn/GeOpps/GeOppsBea
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/GeOpps/GeOppsData_m.o: applications/dtn/GeOpps/GeOppsData_m.cc \
 	applications/dtn/GeOpps/GeOppsData_m.h
@@ -542,6 +549,7 @@ $O/applications/dtn/direct/DirectBeaconsApp.o: applications/dtn/direct/DirectBea
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/distance/DTNDistanceBased.o: applications/dtn/distance/DTNDistanceBased.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -582,6 +590,7 @@ $O/applications/dtn/distance/DTNDistanceBased.o: applications/dtn/distance/DTNDi
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/DistanceBeaconsApp.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -618,6 +627,7 @@ $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/Dis
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/distance/DistanceNeighbor.o: applications/dtn/distance/DistanceNeighbor.cc \
 	applications/beacons/Neighbor.h \
@@ -667,6 +677,7 @@ $O/applications/dtn/epidemic/EpiBeaconsApp.o: applications/dtn/epidemic/EpiBeaco
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/epidemic/EpiNeighbor.o: applications/dtn/epidemic/EpiNeighbor.cc \
 	applications/beacons/Neighbor.h \
@@ -716,6 +727,7 @@ $O/applications/dtn/epidemic/EpidemicProtocol.o: applications/dtn/epidemic/Epide
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/epidemic/Epidemic_m.o: applications/dtn/epidemic/Epidemic_m.cc \
 	applications/dtn/DTNcommon.h \
@@ -759,6 +771,7 @@ $O/applications/dtn/msdp/DTNMsdp.o: applications/dtn/msdp/DTNMsdp.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/msdp/MSDPBeaconsApp.o: applications/dtn/msdp/MSDPBeaconsApp.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -799,6 +812,7 @@ $O/applications/dtn/msdp/MSDPBeaconsApp.o: applications/dtn/msdp/MSDPBeaconsApp.
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/msdp/MSDPDataMsg_m.o: applications/dtn/msdp/MSDPDataMsg_m.cc \
 	applications/dtn/msdp/MSDPDataMsg_m.h
@@ -850,6 +864,7 @@ $O/applications/dtn/random/DTNRandom.o: applications/dtn/random/DTNRandom.cc \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBeaconsApp.cc \
 	applications/beacons/BeaconPkt_m.h \
@@ -886,6 +901,7 @@ $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBea
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/dtn/random/RandomNeighbor.o: applications/dtn/random/RandomNeighbor.cc \
 	applications/beacons/Neighbor.h \
@@ -911,6 +927,7 @@ $O/applications/sumo/NavClient.o: applications/sumo/NavClient.cc \
 	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
 	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/linklayer/Ideal/IdealMacRadio.o: linklayer/Ideal/IdealMacRadio.cc \
 	linklayer/Ideal/IdealMacRadio.h \
@@ -952,6 +969,7 @@ $O/navigationSystem/NavigationSystem.o: navigationSystem/NavigationSystem.cc \
 	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
 	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
 	$(INET_PROJ)/src/util/FWMath.h \
+	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/world/sumoNav/SumoNetwork.o: world/sumoNav/SumoNetwork.cc \
 	world/sumoNav/SumoNetwork.h \
