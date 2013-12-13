@@ -21,7 +21,7 @@ simple DTNMsgGenerator
     parameters:
         int numberOfMessages = default(-1); //-1 infinite packets, 0 no packets
         double phaseTime @unit(seconds) = default(uniform(0s,10s));
-        volatile double msgSize @unit(Byte) = default(2KiB);
+        volatile double msgSize @unit(Byte);
         volatile double interMsgTime @unit(seconds) = default(0s);
         @signal[msgGenerated](type="double");
         @statistic[MsgGenerated](title="Generated Messages";source="msgGenerated"; record=count, sum, vector);

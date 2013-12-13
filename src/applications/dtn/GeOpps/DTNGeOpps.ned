@@ -23,6 +23,7 @@ simple DTNGeOpps like DtnOneCopyProtocol
         double ackTimeOut @unit(seconds) = default(5s);
         string wirelessIf = default("wlan");
         int windowSize = default(5);
+        double redundancy = default(0);
         int bitrate @unit(bps)= default(27Mbps);
         int maxHops = default(0);
         int fragmentSize @unit(bytes)= default(200B);
