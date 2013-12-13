@@ -25,7 +25,9 @@ simple NavigationSystem
         string networkModule = "sumoNetwork"; //name of the SumoNetwork module
         double gpsError = uniform(0, 5);
         int avgSpeedWindow = default(10); //number of measurements used to calculate the window averaged speed
-        xml poaConfig; //Poa's parameters 
+        xml poaConfig = default(xml("<poas></poas>"));//Poas' parameters list, by default is empty
+        double defaultRange @unit(meters) = default(200m);
+        double defaultRate @unit(bps) = default(27Mbps);
         bool debug = default(false);  // emit debug messages? 
 }
 

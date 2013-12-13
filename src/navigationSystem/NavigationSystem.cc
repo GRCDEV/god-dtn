@@ -361,42 +361,60 @@ bool NavigationSystem::parsePOA()
     cXMLElement* networkFile = par("poaConfig").xmlValue();
 
     std::string rootTag = networkFile->getTagName();
-    ASSERT(rootTag == "poas");
     cXMLElementList poaList = networkFile->getElementsByTagName("poa");
     if(poaList.size() == 0)
     {
-        return false;
+        rsuManager = dynamic_cast<RSUManager *>(simulation.getModuleByPath("rsuManager"));
+
+        std::vector<std::pair<Coord, std::string> > poaList = rsuManager->getRandomRsusList();
+        if(poaList.size() == 0){
+            return false;
+        }
+        else{
+            for(uint i=0; i!= poaList.size(); i++){
+                Ap poa;
+                poa.omnetPosition = poaList.at(i).first;
+                poa.traciPosition = manager->omnet2traci(poa.omnetPosition);
+                poa.id=poaList.at(i).second;
+                poa.rate = par("defaultRate").doubleValue();
+                poa.range = par("defaultRange").doubleValue();
+                poa.sqrRange = poa.range * poa.range;
+                this->poaList.push_back(poa);
+            }
+            return true;
+        }
     }
+    else{
+        for (cXMLElementList::const_iterator i = poaList.begin(); i != poaList.end(); ++i) {
+            cXMLElement* e = *i;
+            Ap poa;
+            std::string id;
 
-    for (cXMLElementList::const_iterator i = poaList.begin(); i != poaList.end(); ++i) {
-        cXMLElement* e = *i;
-        Ap poa;
-        std::string id;
+            double x;
+            double y;
+            double rate;
+            double range;
+            ASSERT(e->getAttribute("id"));
+            id = e->getAttribute("id");
+            ASSERT(e->getAttribute("x"));
+            x = atof(e->getAttribute("x"));
+            ASSERT(e->getAttribute("y"));
+            y = atof(e->getAttribute("y"));
+            ASSERT(e->getAttribute("rate"));
+            rate= atof(e->getAttribute("rate"));
+            ASSERT(e->getAttribute("range"));
+            range= atof(e->getAttribute("range"));
+            poa.id=id;
+            poa.traciPosition = TraCIScenarioManager::TraCICoord(x,y);
+            poa.omnetPosition = manager-> traci2omnet(TraCIScenarioManager::TraCICoord(x,y));
+            poa.rate=rate;
+            poa.range = range;
+            poa.sqrRange = range*range;
 
-        double x;
-        double y;
-        double rate;
-        double range;
-        ASSERT(e->getAttribute("id"));
-        id = e->getAttribute("id");
-        ASSERT(e->getAttribute("x"));
-        x = atof(e->getAttribute("x"));
-        ASSERT(e->getAttribute("y"));
-        y = atof(e->getAttribute("y"));
-        ASSERT(e->getAttribute("rate"));
-        rate= atof(e->getAttribute("rate"));
-        ASSERT(e->getAttribute("range"));
-        range= atof(e->getAttribute("range"));
-        poa.id=id;
-        poa.traciPosition = TraCIScenarioManager::TraCICoord(x,y);
-        poa.omnetPosition = manager-> traci2omnet(TraCIScenarioManager::TraCICoord(x,y));
-        poa.rate=rate;
-        poa.range = range;
-        poa.sqrRange = range*range;
-
-        this->poaList.push_back(poa);
+            this->poaList.push_back(poa);
+        }
+        return true;
     }
-    return true;
 }
 
 std::vector<Coord> NavigationSystem::getIntersection(Coord from, Coord to, Coord center, double R)

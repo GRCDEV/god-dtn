@@ -27,6 +27,7 @@
 #include "SumoNetwork.h"
 #include "TraCIMobility.h"
 #include "clistener.h"
+#include "RSUManager.h"
 
 class NavigationSystem: public cSimpleModule,  protected cListener{
 public:
@@ -57,7 +58,7 @@ public:
     virtual int numInitStages() const{
         return 3;
     }
-
+private:
     struct _nextTxOpCache{
         Coord   lastLocation;
         simtime_t lastUpdate;
@@ -66,7 +67,7 @@ public:
         double  distance;
         double  time;
     } nextTxOpCache;
-
+public:
     /*
      * This class assumes circular coverage areas
      */
@@ -96,7 +97,7 @@ public:
     //Return the current Edge id
     const std::string getCurrentRoad() const;
 
-
+private:
     //Return the nearest point of the route to the closest POA
     struct _NPCache{
         std::string lastRouteId;
@@ -109,7 +110,7 @@ public:
         Coord previousBestPoint;
         simtime_t previousCall;
     } NPCache;
-
+public:
     Coord getNearestPointInRouteToPoa(double &timeToArrive, double &distance, double &avgSpeed);
 
     double getDistanceNextJoint() const;
@@ -194,6 +195,7 @@ private:
     bool inTxOp;
     TraCIMobility *mobility;
     TraCIScenarioManager* manager;
+    RSUManager* rsuManager;
     SumoNetwork* network;
     bool poaExists;
     bool initialized;
