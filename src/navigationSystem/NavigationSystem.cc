@@ -548,7 +548,22 @@ void NavigationSystem::updateRoute()
                     if(to.sqrdist(ap.omnetPosition) > ap.sqrRange && from.sqrdist(ap.omnetPosition) > ap.sqrRange)
                     {
                         // from O-----X++++++++++X-----O to
-                        ASSERT(!connected);
+                        //ASSERT(!connected);
+
+                        if(connected){
+                            /*
+                             * Finish the previous opportunity and start a new one
+                             */
+                            txOp= new TxOp;
+                            txOp->ap.push_back(&poaList[k]);
+                            oportunities.push_back(txOp);
+                            txOp->endPos = network->getEdgeLength(edgeId);
+                            if(txOp->edgeList.empty() || txOp->edgeList.back() != edgeId)
+                            {
+                                txOp->edgeList.push_back(edgeId);
+                            }
+                        }
+
                         //This opportunity starts and ends during this segment.
 
                         txOp->totalLength = intersection[0].distance(intersection[1]);
@@ -591,8 +606,23 @@ void NavigationSystem::updateRoute()
                     }
                     else if(to.sqrdist(ap.omnetPosition) < ap.sqrRange && from.sqrdist(ap.omnetPosition)  > ap.sqrRange)
                     {
-                        ASSERT(!connected);
+                        //ASSERT(!connected);
                         // from O----X+++++++++O to
+
+                        if(connected){
+                            /*
+                             * Finish the previous opportunity and start a new one
+                             */
+                            txOp= new TxOp;
+                            txOp->ap.push_back(&poaList[k]);
+                            oportunities.push_back(txOp);
+                            txOp->endPos = network->getEdgeLength(edgeId);
+                            if(txOp->edgeList.empty() || txOp->edgeList.back() != edgeId)
+                            {
+                                txOp->edgeList.push_back(edgeId);
+                            }
+                        }
+
                         //This opportunity starts in this segment
                         double dist0 = to.distance(intersection[0]);
                         double dist1 = to.distance(intersection[1]);
