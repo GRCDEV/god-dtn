@@ -31,7 +31,7 @@ DtnOneCopyProtocol::~DtnOneCopyProtocol()
 void DtnOneCopyProtocol::sendMessage(uint64 destId, uint64 msgId, bool broadcast, uint32 length)
 {
     Enter_Method("sendMessage()");
-    uint n = ceil(length / (fragmentSize-sizeof(DTNFragment)));
+    uint n = ceil(double(length) / (fragmentSize-sizeof(DTNFragment)));
     uint N = ceil(n*(1+redundancy));
     for(uint32 i=0; i<N ; i++){
         DTNFragment fragment;
