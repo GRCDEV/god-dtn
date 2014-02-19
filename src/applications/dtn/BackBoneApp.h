@@ -33,6 +33,7 @@ protected:
     int numInitStages() const {return std::max(cSimpleModule::numInitStages(), 1);}
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
+    virtual void finish();
 private:
     uint interface;
     uint localPort;
@@ -64,6 +65,7 @@ private:
     simsignal_t frgRcv;
     simsignal_t msgDelay;
     simsignal_t frgDelay;
+    simsignal_t msgPartial;
 
     void processDtnData(DTNDataMsg *msg);
     void informSubscribers(uint64 srcId, uint32 msgId, uint32 seqN);

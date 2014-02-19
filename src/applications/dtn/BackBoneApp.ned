@@ -31,6 +31,8 @@ simple BackBoneApp
         @signal[fragmentReceivedDelay](type="double");
         @statistic[MsgReceivedDelay](title="Received Messages Delay";source="msgReceivedDelay"; record= vector, histogram);
         @statistic[FragmentReceivedDelay](title="Received Fragments Delay";source="fragmentReceivedDelay"; record= vector, histogram);
+        @signal[msgPartial](type="int"); //Emited at the end of the simulation, once for every partially received message, contains the lacked fragments 
+        @statistic[PartiallyReceived](title="Partially received messages";source="msgPartial"; record=count, histogram);
     gates:
         input dataIn;
 }

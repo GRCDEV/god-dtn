@@ -62,6 +62,9 @@ void DtnOneCopyProtocol::onNewNeighbor(Neighbor *neighbor)
         neighWindow.insert(std::pair<uint64, uint>{neighbor->getId(),windowSize});
         ASSERT(sortedNeighbors->size() == neighbors.size());
         startTransmission();
+        if(neighbor->getNodeType()==NodeType::Sink){
+            oppStarted = simTime();
+        }
     }
     else{
         /*
@@ -78,6 +81,9 @@ void DtnOneCopyProtocol::onRemoveNeighbor(Neighbor *neighbor)
     uint64 id = neighbor->getId();
     if(neighbors.find(id) != neighbors.end()){
         Neighbor *oldPointer = neighbors.at(id);
+        if(neighbor->getNodeType() == NodeType::Sink){
+            emit(oppExpired, simTime()-oppStarted);
+        }
         int ret = sortedNeighbors->erase(oldPointer);
         ASSERT(ret==1);
         ret = neighbors.erase(id);
@@ -166,6 +172,8 @@ void DtnOneCopyProtocol::initialize(int stage)
         ackTx = registerSignal("dtnAckTx");
         ackRx = registerSignal("dtnAckRx");
         ackTO = registerSignal("dtnAckTO");
+        oppExpired = registerSignal("oppExpired");
+        dropMsg = registerSignal("dropMsg");
     }
 }
 
@@ -416,6 +424,8 @@ bool DtnOneCopyProtocol::hasPackets()
     return !buffer.empty();
 }
 
-
+void DtnOneCopyProtocol::finish(){
+    emit(dropMsg, buffer.size());
+}
 
 

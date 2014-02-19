@@ -45,6 +45,10 @@ protected:
 
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
+    /*
+     * Finish: emit a signal to inform about dropped messages.
+     */
+    virtual void finish();
     BeaconsApp *beaconsApp;
     /*
      * List containing Neighbors, only better neighbors than me must be added
@@ -146,6 +150,9 @@ private:
     simsignal_t ackTx;
     simsignal_t ackRx;
     simsignal_t ackTO;
+    simsignal_t oppExpired;
+    simsignal_t dropMsg;
+    simtime_t oppStarted;
     /*
      * Process a DTNData msg. Enqueue its contents and check if a transmission can occur now.
      */

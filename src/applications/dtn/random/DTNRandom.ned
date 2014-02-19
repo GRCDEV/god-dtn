@@ -45,6 +45,10 @@ simple DTNRandom like DtnOneCopyProtocol
         @statistic[AckRx](title="AckReception";source="packetBytes(dtnAckRx)"; record=count, sum, vector);
         @signal[dtnAckTO](type="cPacket");
         @statistic[AckTO](title="AckTimeOut";source="dtnAckTO"; record=count, sum);
+        @signal[oppExpired](type="double");
+        @statistic[OppExpired](title="OppExpired";source="oppExpired"; record=count, vector);
+        @signal[dropMsg](type="int");
+        @statistic[DropFragments](title="DropMessages";source="dropMsg"; record=sum);        
      gates:
         input udpIn @labels(UDPControlInfo/up);
         output udpOut @labels(UDPControlInfo/down);

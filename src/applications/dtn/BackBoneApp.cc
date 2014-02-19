@@ -32,6 +32,7 @@ void BackBoneApp::initialize(int stage)
     frgRcv = registerSignal("fragmentReceived");
     msgDelay = registerSignal("msgReceivedDelay");
     frgDelay = registerSignal("fragmentReceivedDelay");
+    msgPartial = registerSignal("msgPartial");
 }
 
 
@@ -96,6 +97,12 @@ void BackBoneApp::processDtnData(DTNDataMsg *msg)
 void BackBoneApp::unRegisterEpidemicProto(EpidemicProtocol *proto)
 {
     subscribrers.erase(proto);
+}
+
+void BackBoneApp::finish() {
+    for(std::map<DtnMsg, std::set<uint32> >::iterator i = receiving.begin(); i!=receiving.end(); i++){
+        emit(msgPartial, i->second.size());
+    }
 }
 
 void BackBoneApp::informSubscribers(uint64 srcId, uint32 msgId, uint32 seqN)
