@@ -81,13 +81,13 @@ void BackBoneApp::processDtnData(DTNDataMsg *msg)
                     //Fragment received twice
                 }
             }
-        }
-        if(receiving.at(dtnMsg).size() >= fragment.totalN){
-            received.insert(dtnMsg);
-            emit(msgRcv, (fragment.totalN*(fragment.size-sizeof(DTNFragment))));
-            emit(msgDelay, fragDelay);
-            informSubscribers(dtnMsg.srcId, dtnMsg.msgId, fragment.totalN);
-            receiving.erase(dtnMsg);
+            if(receiving.at(dtnMsg).size() >= fragment.totalN){
+                received.insert(dtnMsg);
+                emit(msgRcv, (fragment.totalN*(fragment.size-sizeof(DTNFragment))));
+                emit(msgDelay, fragDelay);
+                informSubscribers(dtnMsg.srcId, dtnMsg.msgId, fragment.totalN);
+                receiving.erase(dtnMsg);
+            }
         }
     }
     delete msg;

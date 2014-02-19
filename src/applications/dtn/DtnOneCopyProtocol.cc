@@ -425,7 +425,7 @@ bool DtnOneCopyProtocol::hasPackets()
 }
 
 void DtnOneCopyProtocol::finish(){
-    emit(dropMsg, buffer.size());
+    emit(dropMsg, buffer.size()+msgIdAckMap.size());
 }
 
 
