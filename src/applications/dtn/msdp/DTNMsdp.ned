@@ -46,7 +46,7 @@ simple DTNMsdp like DtnOneCopyProtocol
         @signal[dtnAckTO](type="cPacket");
         @statistic[AckTO](title="AckTimeOut";source="dtnAckTO"; record=count, sum);
         @signal[oppExpired](type="double");
-        @statistic[OppExpired](title="OppExpired";source="oppExpired"; record=count, vector);
+        @statistic[OppExpired](title="OppExpired";source="oppExpired"; record=count, vector, mean);
         @signal[dropMsg](type="int");
         @statistic[DropFragments](title="DropMessages";source="dropMsg"; record=sum);        
      gates:
