@@ -29,6 +29,7 @@ simple DTNMsdp like DtnOneCopyProtocol
         int fragmentSize @unit(bytes)= default(200B);
         double maxRange @unit(meters) = default(300m);
         double transmissionPenalty = default(1);//Penalty applied to neighbours when evaluating their DTN index. By default no penalty is applied
+        bool oneFragPerMsg=default(false);
         bool useAck =default (true);
         bool useBroadcast =default(false); 
        @signal[dtnFragmentGenerated](type="double");

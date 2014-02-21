@@ -28,6 +28,7 @@ simple DTNRandom like DtnOneCopyProtocol
         int maxHops = default(0);
         int fragmentSize @unit(bytes)= default(200B);
         double maxRange @unit(meters) = default(300m);
+        bool oneFragPerMsg = default(false);        
         bool useAck =default (true);
         bool useBroadcast =default(false);
         double minP = default(0.5);

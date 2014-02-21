@@ -28,6 +28,7 @@ moduleinterface DtnOneCopyProtocol extends IUDPApp
         int maxHops;
         int fragmentSize @unit(bytes);
         double maxRange @unit(meters);
+        bool oneFragPerMsg;
         bool useAck;
         bool useBroadcast;
         @signal[dtnFragmentGenerated](type="double");

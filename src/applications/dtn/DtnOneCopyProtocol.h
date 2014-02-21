@@ -143,6 +143,10 @@ private:
      * amount of redundancy added to messages
      */
     double redundancy;
+    /*
+     * Define if multiple fragments will be aggregated in every message (up to MTU)
+     */
+    bool oneFragPerMsg;
     simsignal_t fragmentGenerated;
     simsignal_t dataTx;
     simsignal_t directDataTx;

@@ -164,6 +164,7 @@ void DtnOneCopyProtocol::initialize(int stage)
         maxRange = par("maxRange");
         maxSqrRange = pow(maxRange,2);
         useAck = par("useAck").boolValue();
+        oneFragPerMsg= par("oneFragPerMsg").boolValue();
         msgId=intrand(100);
         fragmentGenerated = registerSignal("dtnFragmentGenerated");
         dataTx = registerSignal("dtnDataTx");
@@ -174,6 +175,7 @@ void DtnOneCopyProtocol::initialize(int stage)
         ackTO = registerSignal("dtnAckTO");
         oppExpired = registerSignal("oppExpired");
         dropMsg = registerSignal("dropMsg");
+
     }
 }
 
@@ -285,7 +287,13 @@ DTNDataMsg *DtnOneCopyProtocol::generateDtnData(const Neighbor *neigh, int nodeT
     data->setDstId(neigh->getId());
     data->setSrcId(myId);
     data->setMsgId(msgId++);
-    uint n = MAX_DTN_PACKET_SIZE/(fragmentSize);
+    uint n;
+    if(oneFragPerMsg){
+        n=1;
+    }
+    else{
+        n= MAX_DTN_PACKET_SIZE/(fragmentSize);
+    }
     uint j=0;
     std::vector<DTNFragment> toSend;
     for(std::map<timeSeq, DTNFragment>::iterator i = buffer.begin(); i!= buffer.end()  && j != n; i++){
