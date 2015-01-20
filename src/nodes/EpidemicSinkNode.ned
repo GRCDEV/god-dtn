@@ -16,7 +16,7 @@ package inet.GRC.nodes;
 import inet.GRC.applications.beacons.BeaconsApp;
 import inet.GRC.applications.dtn.SinkApp;
 import inet.base.NotificationBoard;
-import inet.mobility.models.StationaryMobility;
+import inet.mobility.static.StationaryMobility;
 import inet.networklayer.autorouting.ipv4.HostAutoConfigurator;
 import inet.networklayer.common.InterfaceTable;
 import inet.networklayer.ipv4.RoutingTable;
@@ -97,8 +97,8 @@ module EpidemicSinkNode
         udp.appOut++ --> beaconsApp.udpIn;
         udp.appIn++ <-- beaconsApp.udpOut;
 
-        udp.ipOut --> networkLayer.udpIn;
-        udp.ipIn <-- networkLayer.udpOut;
+        udp.ipOut --> networkLayer.transportIn++;
+        udp.ipIn <-- networkLayer.transportOut++;
 
         wlan0.upperLayerOut --> networkLayer.ifIn[0];
         wlan0.upperLayerIn <-- networkLayer.ifOut[0];

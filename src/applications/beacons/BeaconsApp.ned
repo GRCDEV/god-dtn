@@ -28,9 +28,9 @@ simple BeaconsApp like IUDPApp{
     	string interface = default("wlan");
     	string serviceInterface = default("wlan");
     	@signal[newNeighbor](type="integer");
-        @statistic[NewNeighbor](title="New Neighbor Detected";source="newNeighbor"; record=count, vector);
+        @statistic[NewNeighbor](title="New Neighbor Detected";source="newNeighbor"; record=vector,count);
         @signal[rmNeighbor](type="integer");
-        @statistic[RmNeighbor](title="Neighbor Removed";source="rmNeighbor"; record=count, vector);
+        @statistic[RmNeighbor](title="Neighbor Removed";source="rmNeighbor"; record=vector,count);
    	gates:
    	    output 	udpOut;
    	    input	udpIn;

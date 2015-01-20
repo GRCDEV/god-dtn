@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for libgod-dtn
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/linklayer/ethernet -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/mobility/models -I../../inet/src/networklayer/manetrouting/base -I../../inet/src/networklayer/contract -I../../inet/src/mobility -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/linklayer/ieee80211/mgmt -I../../inet/src/world/VACaMobil -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -L../../inet/out/$$\(CONFIGNAME\)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
+#  opp_makemake -f --deep --make-so -I../../inet/src/linklayer/ieee80211/radio -I../../inet/src/networklayer/routing/aodv -I../../inet/src/networklayer/common -I../../inet/src/networklayer/icmpv6 -I../../inet/src -I../../inet/src/world/obstacles -I../../inet/src/networklayer/xmipv6 -I../../inet/src/networklayer/contract -I../../inet/src/networklayer/autorouting/ipv4 -I../../inet/src/world/VACaMobil -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/common -I../../inet/src/status -I../../inet/src/mobility/static -I../../inet/src/linklayer/radio/propagation -I../../inet/src/world/traci -I../../inet/src/linklayer/ieee80211/radio/errormodel -I../../inet/src/linklayer/radio -I../../inet/src/util/headerserializers/tcp -I../../inet/src/networklayer/ipv4 -I../../inet/src/mobility/contract -I../../inet/src/util/headerserializers/ipv4 -I../../inet/src/base -I../../inet/src/mobility/single -I../../inet/src/util/headerserializers -I../../inet/src/world/radio -I../../inet/src/linklayer/ieee80211/mac -I../../inet/src/transport/sctp -I../../inet/src/networklayer/ipv6 -I../../inet/src/util/headerserializers/udp -I../../inet/src/networklayer/ipv6tunneling -I../../inet/src/util/headerserializers/ipv6 -I../../inet/src/battery/models -I../../inet/src/applications/pingapp -I../../inet/src/util/headerserializers/sctp -I../../inet/src/linklayer/contract -I../../inet/src/transport/tcp_common -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -I../../inet/src/mobility/common -L../../inet/out/$$\(CONFIGNAME\)/src -linet -DWITH_TRACI -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -11,31 +11,30 @@ TARGET = libgod-dtn$(SHARED_LIB_SUFFIX)
 # C++ include paths (with -I)
 INCLUDE_PATH = \
     -I../../inet/src/linklayer/ieee80211/radio \
-    -I../../inet/src/linklayer/ethernet \
+    -I../../inet/src/networklayer/routing/aodv \
     -I../../inet/src/networklayer/common \
     -I../../inet/src/networklayer/icmpv6 \
     -I../../inet/src \
     -I../../inet/src/world/obstacles \
     -I../../inet/src/networklayer/xmipv6 \
-    -I../../inet/src/mobility/models \
-    -I../../inet/src/networklayer/manetrouting/base \
     -I../../inet/src/networklayer/contract \
-    -I../../inet/src/mobility \
     -I../../inet/src/networklayer/autorouting/ipv4 \
-    -I../../inet/src/linklayer/ieee80211/mgmt \
     -I../../inet/src/world/VACaMobil \
     -I../../inet/src/util \
     -I../../inet/src/transport/contract \
     -I../../inet/src/linklayer/common \
     -I../../inet/src/status \
+    -I../../inet/src/mobility/static \
     -I../../inet/src/linklayer/radio/propagation \
     -I../../inet/src/world/traci \
     -I../../inet/src/linklayer/ieee80211/radio/errormodel \
     -I../../inet/src/linklayer/radio \
     -I../../inet/src/util/headerserializers/tcp \
     -I../../inet/src/networklayer/ipv4 \
+    -I../../inet/src/mobility/contract \
     -I../../inet/src/util/headerserializers/ipv4 \
     -I../../inet/src/base \
+    -I../../inet/src/mobility/single \
     -I../../inet/src/util/headerserializers \
     -I../../inet/src/world/radio \
     -I../../inet/src/linklayer/ieee80211/mac \
@@ -43,6 +42,7 @@ INCLUDE_PATH = \
     -I../../inet/src/networklayer/ipv6 \
     -I../../inet/src/util/headerserializers/udp \
     -I../../inet/src/networklayer/ipv6tunneling \
+    -I../../inet/src/util/headerserializers/ipv6 \
     -I../../inet/src/battery/models \
     -I../../inet/src/applications/pingapp \
     -I../../inet/src/util/headerserializers/sctp \
@@ -50,6 +50,7 @@ INCLUDE_PATH = \
     -I../../inet/src/transport/tcp_common \
     -I../../inet/src/networklayer/arp \
     -I../../inet/src/transport/udp \
+    -I../../inet/src/mobility/common \
     -I. \
     -IPruebas \
     -IPruebas/beacons \
@@ -257,7 +258,7 @@ $O/applications/beacons/BeaconsApp.o: applications/beacons/BeaconsApp.cc \
 	applications/dtn/DTNcommon.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -267,9 +268,9 @@ $O/applications/beacons/BeaconsApp.o: applications/beacons/BeaconsApp.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -287,6 +288,7 @@ $O/applications/beacons/BeaconsApp.o: applications/beacons/BeaconsApp.cc \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/applications/beacons/Neighbor.o: applications/beacons/Neighbor.cc \
 	applications/beacons/Neighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -306,7 +308,7 @@ $O/applications/dtn/BackBoneApp.o: applications/dtn/BackBoneApp.cc \
 	applications/dtn/epidemic/Epidemic_m.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -316,9 +318,9 @@ $O/applications/dtn/BackBoneApp.o: applications/dtn/BackBoneApp.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -340,6 +342,7 @@ $O/applications/dtn/DTNDataMsg_m.o: applications/dtn/DTNDataMsg_m.cc \
 $O/applications/dtn/DTNMsgGenerator.o: applications/dtn/DTNMsgGenerator.cc \
 	applications/dtn/DTNMsgGenerator.h \
 	applications/dtn/IDTNProtocol.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h
 $O/applications/dtn/DtnOneCopyProtocol.o: applications/dtn/DtnOneCopyProtocol.cc \
@@ -352,7 +355,7 @@ $O/applications/dtn/DtnOneCopyProtocol.o: applications/dtn/DtnOneCopyProtocol.cc
 	applications/dtn/IDTNProtocol.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -362,9 +365,9 @@ $O/applications/dtn/DtnOneCopyProtocol.o: applications/dtn/DtnOneCopyProtocol.cc
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -394,7 +397,7 @@ $O/applications/dtn/SinkApp.o: applications/dtn/SinkApp.cc \
 	applications/dtn/epidemic/Epidemic_m.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -404,9 +407,9 @@ $O/applications/dtn/SinkApp.o: applications/dtn/SinkApp.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -436,7 +439,7 @@ $O/applications/dtn/GeOpps/DTNGeOpps.o: applications/dtn/GeOpps/DTNGeOpps.cc \
 	applications/dtn/IDTNProtocol.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -446,9 +449,9 @@ $O/applications/dtn/GeOpps/DTNGeOpps.o: applications/dtn/GeOpps/DTNGeOpps.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -474,7 +477,7 @@ $O/applications/dtn/GeOpps/GeOppsBeaconsApp.o: applications/dtn/GeOpps/GeOppsBea
 	applications/dtn/GeOpps/GeOppsNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -484,9 +487,9 @@ $O/applications/dtn/GeOpps/GeOppsBeaconsApp.o: applications/dtn/GeOpps/GeOppsBea
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -507,6 +510,7 @@ $O/applications/dtn/GeOpps/GeOppsData_m.o: applications/dtn/GeOpps/GeOppsData_m.
 $O/applications/dtn/GeOpps/GeOppsNeighbor.o: applications/dtn/GeOpps/GeOppsNeighbor.cc \
 	applications/beacons/Neighbor.h \
 	applications/dtn/GeOpps/GeOppsNeighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -523,7 +527,7 @@ $O/applications/dtn/direct/DirectBeaconsApp.o: applications/dtn/direct/DirectBea
 	applications/dtn/random/RandomNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -533,9 +537,9 @@ $O/applications/dtn/direct/DirectBeaconsApp.o: applications/dtn/direct/DirectBea
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -564,7 +568,7 @@ $O/applications/dtn/distance/DTNDistanceBased.o: applications/dtn/distance/DTNDi
 	applications/dtn/distance/DistanceNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -574,9 +578,9 @@ $O/applications/dtn/distance/DTNDistanceBased.o: applications/dtn/distance/DTNDi
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -601,7 +605,7 @@ $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/Dis
 	applications/dtn/distance/DistanceNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -611,9 +615,9 @@ $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/Dis
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -632,6 +636,7 @@ $O/applications/dtn/distance/DistanceBeaconsApp.o: applications/dtn/distance/Dis
 $O/applications/dtn/distance/DistanceNeighbor.o: applications/dtn/distance/DistanceNeighbor.cc \
 	applications/beacons/Neighbor.h \
 	applications/dtn/distance/DistanceNeighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -651,7 +656,7 @@ $O/applications/dtn/epidemic/EpiBeaconsApp.o: applications/dtn/epidemic/EpiBeaco
 	applications/dtn/epidemic/Epidemic_m.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -661,9 +666,9 @@ $O/applications/dtn/epidemic/EpiBeaconsApp.o: applications/dtn/epidemic/EpiBeaco
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -682,6 +687,7 @@ $O/applications/dtn/epidemic/EpiBeaconsApp.o: applications/dtn/epidemic/EpiBeaco
 $O/applications/dtn/epidemic/EpiNeighbor.o: applications/dtn/epidemic/EpiNeighbor.cc \
 	applications/beacons/Neighbor.h \
 	applications/dtn/epidemic/EpiNeighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -701,7 +707,7 @@ $O/applications/dtn/epidemic/EpidemicProtocol.o: applications/dtn/epidemic/Epide
 	applications/dtn/epidemic/Epidemic_m.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -711,9 +717,9 @@ $O/applications/dtn/epidemic/EpidemicProtocol.o: applications/dtn/epidemic/Epide
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -745,7 +751,7 @@ $O/applications/dtn/msdp/DTNMsdp.o: applications/dtn/msdp/DTNMsdp.cc \
 	applications/dtn/msdp/MsdpNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -755,9 +761,9 @@ $O/applications/dtn/msdp/DTNMsdp.o: applications/dtn/msdp/DTNMsdp.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -786,7 +792,7 @@ $O/applications/dtn/msdp/MSDPBeaconsApp.o: applications/dtn/msdp/MSDPBeaconsApp.
 	applications/dtn/msdp/MsdpNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -796,9 +802,9 @@ $O/applications/dtn/msdp/MSDPBeaconsApp.o: applications/dtn/msdp/MSDPBeaconsApp.
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -819,6 +825,7 @@ $O/applications/dtn/msdp/MSDPDataMsg_m.o: applications/dtn/msdp/MSDPDataMsg_m.cc
 $O/applications/dtn/msdp/MsdpNeighbor.o: applications/dtn/msdp/MsdpNeighbor.cc \
 	applications/beacons/Neighbor.h \
 	applications/dtn/msdp/MsdpNeighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -838,7 +845,7 @@ $O/applications/dtn/random/DTNRandom.o: applications/dtn/random/DTNRandom.cc \
 	applications/dtn/random/RandomNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -848,9 +855,9 @@ $O/applications/dtn/random/DTNRandom.o: applications/dtn/random/DTNRandom.cc \
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -875,7 +882,7 @@ $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBea
 	applications/dtn/random/RandomNeighbor.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/ILifecycle.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -885,9 +892,9 @@ $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBea
 	$(INET_PROJ)/src/base/NotifierConsts.h \
 	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
 	$(INET_PROJ)/src/linklayer/ieee80211/mac/Ieee80211Consts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/networklayer/common/IInterfaceTable.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTable.h \
@@ -906,6 +913,7 @@ $O/applications/dtn/random/RandomBeaconsApp.o: applications/dtn/random/RandomBea
 $O/applications/dtn/random/RandomNeighbor.o: applications/dtn/random/RandomNeighbor.cc \
 	applications/beacons/Neighbor.h \
 	applications/dtn/random/RandomNeighbor.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
@@ -916,22 +924,20 @@ $O/applications/sumo/NavClient.o: applications/sumo/NavClient.cc \
 	applications/sumo/NavClient.h \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
-	$(INET_PROJ)/src/base/NotificationBoard.h \
-	$(INET_PROJ)/src/base/NotifierConsts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/util/FWMath.h \
 	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/linklayer/Ideal/IdealMacRadio.o: linklayer/Ideal/IdealMacRadio.cc \
 	linklayer/Ideal/IdealMacRadio.h \
 	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
@@ -948,6 +954,9 @@ $O/linklayer/Ideal/IdealMacRadio.o: linklayer/Ideal/IdealMacRadio.cc \
 	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceTableAccess.h \
 	$(INET_PROJ)/src/networklayer/common/InterfaceToken.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
 	$(INET_PROJ)/src/util/FWMath.h \
 	$(INET_PROJ)/src/world/annotations/AnnotationManager.h \
 	$(INET_PROJ)/src/world/obstacles/Obstacle.h \
@@ -958,21 +967,19 @@ $O/linklayer/Ideal/IdealMacRadio.o: linklayer/Ideal/IdealMacRadio.cc \
 $O/navigationSystem/NavigationSystem.o: navigationSystem/NavigationSystem.cc \
 	navigationSystem/NavigationSystem.h \
 	world/sumoNav/SumoNetwork.h \
-	$(INET_PROJ)/src/base/BasicModule.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
-	$(INET_PROJ)/src/base/NotificationBoard.h \
-	$(INET_PROJ)/src/base/NotifierConsts.h \
-	$(INET_PROJ)/src/mobility/IMobility.h \
-	$(INET_PROJ)/src/mobility/models/MobilityBase.h \
-	$(INET_PROJ)/src/mobility/models/TraCIMobility.h \
+	$(INET_PROJ)/src/mobility/common/MobilityBase.h \
+	$(INET_PROJ)/src/mobility/contract/IMobility.h \
+	$(INET_PROJ)/src/mobility/single/TraCIMobility.h \
 	$(INET_PROJ)/src/util/FWMath.h \
 	$(INET_PROJ)/src/world/VACaMobil/RSUManager.h \
 	$(INET_PROJ)/src/world/traci/TraCIScenarioManager.h
 $O/world/sumoNav/SumoNetwork.o: world/sumoNav/SumoNetwork.cc \
 	world/sumoNav/SumoNetwork.h \
+	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/Coord.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \

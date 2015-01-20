@@ -88,7 +88,9 @@ void SinkApp::processDtnData(DTNDataMsg *data)
 
         DTNDataAck *ack = generateDtnAck(data);
         emit(ackTx, ack);
-        socket.sendTo(ack, dstAddr, srcPort, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(ack, dstAddr, srcPort, &options);
     }
 }
 

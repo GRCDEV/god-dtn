@@ -125,7 +125,9 @@ void BeaconsApp::sendNewBeacon(){
     beacon->setServiceIp(myServiceAddr.getInt());
     beacon->setByteLength(sizeof(myId)+sizeof(uint32)+sizeof(type)+sizeof(myLoc.x)*2+sizeof(double)*2+sizeof(uint64));
     addExtraInfo(beacon);
-    socket.sendTo(beacon, IPv4Address::ALLONES_ADDRESS, destPort, outputInterface);
+    UDPSocket::SendOptions options;
+    options.outInterfaceId = outputInterface;
+    socket.sendTo(beacon, IPv4Address::ALLONES_ADDRESS, destPort, &options);
 }
 void BeaconsApp::processBeacon(BeaconPkt *beacon){
     bool newNeighbor=false;

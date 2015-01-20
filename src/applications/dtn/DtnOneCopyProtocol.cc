@@ -224,7 +224,9 @@ void DtnOneCopyProtocol::processDTNData(DTNDataMsg *msg)
         // determine its source address/port
         UDPDataIndication *ctrl = check_and_cast<UDPDataIndication *>(msg->removeControlInfo());
         IPvXAddress dstAddr = useBroadcast?IPv4Address::ALLONES_ADDRESS:ctrl->getSrcAddr();
-        socket.sendTo(ack, dstAddr, destPort, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(ack, dstAddr, destPort, &options);
         waitTime = ((double)ack->getByteLength())/(double)bitrate;
     }
     startTransmission(waitTime);
@@ -405,8 +407,9 @@ void DtnOneCopyProtocol::doTransmission()
             }
 
             IPvXAddress dstAddr = useBroadcast?IPv4Address::ALLONES_ADDRESS:dst->getIpAddr();
-
-            socket.sendTo(data, dstAddr, destPort, wifiInterface);
+            UDPSocket::SendOptions options;
+            options.outInterfaceId = wifiInterface;
+            socket.sendTo(data, dstAddr, destPort, &options);
 
             if(useAck){
                 uint window = neighWindow.at(dst->getId());

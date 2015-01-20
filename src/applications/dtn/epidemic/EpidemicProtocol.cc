@@ -185,7 +185,9 @@ void EpidemicProtocol::processOffer(EpidemicPktOffer *msg)
         for(uint j=0; j< asked.size(); j++){
              ask->setAsk(j, asked.at(j));
         }
-        socket.sendTo(ask, dstAddr, destPort, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(ask, dstAddr, destPort, &options);
     }
     else{
         delete ask;
@@ -226,7 +228,9 @@ void EpidemicProtocol::processAsk(EpidemicPktAsk *msg)
             totalLength = 0;
             DTNDataMsg *data_t = data->dup();
             data->setMsgId(msgId++);
-            socket.sendTo(data_t, dstAddr, destPort, wifiInterface);
+            UDPSocket::SendOptions options;
+            options.outInterfaceId = wifiInterface;
+            socket.sendTo(data_t, dstAddr, destPort, &options);
         }
     }
     if(toSend.size()>0){
@@ -236,7 +240,9 @@ void EpidemicProtocol::processAsk(EpidemicPktAsk *msg)
         for(uint j=0; j < toSend.size(); j++){
             data->setFragments(j, toSend.at(j));
         }
-        socket.sendTo(data, dstAddr, destPort, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(data, dstAddr, destPort, &options);
     }
     else{
         delete data;
@@ -289,7 +295,9 @@ void EpidemicProtocol::sendOffer(IPvXAddress ip, uint64 nodeId)
             newMsg->setByteLength(totalLength);
             totalLength = sizeof(myId)*2+sizeof(PKT_OFFER);
             toSend.clear();
-            socket.sendTo(newMsg, ip, DTN_PORT, wifiInterface);
+            UDPSocket::SendOptions options;
+            options.outInterfaceId = wifiInterface;
+            socket.sendTo(newMsg, ip, DTN_PORT, &options);
         }
     }
     if(toSend.size() != 0){
@@ -298,7 +306,9 @@ void EpidemicProtocol::sendOffer(IPvXAddress ip, uint64 nodeId)
             msg->setOffer(j,toSend.at(j));
         }
         msg->setByteLength(totalLength);
-        socket.sendTo(msg, ip, DTN_PORT, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(msg, ip, DTN_PORT, &options);
     }
     else{
         delete msg;
@@ -355,7 +365,9 @@ void EpidemicProtocol::emptyBufferOnSink(IPvXAddress ip, uint64 nodeId)
             totalLength = 0;
             DTNDataMsg *data_t = data->dup();
             data->setMsgId(msgId++);
-            socket.sendTo(data_t, dstAddr, destPort, wifiInterface);
+            UDPSocket::SendOptions options;
+            options.outInterfaceId = wifiInterface;
+            socket.sendTo(data_t, dstAddr, destPort, &options);
         }
         delivered.insert(uni);
     }
@@ -366,7 +378,9 @@ void EpidemicProtocol::emptyBufferOnSink(IPvXAddress ip, uint64 nodeId)
         for(uint j=0; j < toSend.size(); j++){
             data->setFragments(j, toSend.at(j));
         }
-        socket.sendTo(data, dstAddr, destPort, wifiInterface);
+        UDPSocket::SendOptions options;
+        options.outInterfaceId = wifiInterface;
+        socket.sendTo(data, dstAddr, destPort, &options);
     }
     else{
         delete data;
