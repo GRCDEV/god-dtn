@@ -42,7 +42,7 @@ void DtnOneCopyProtocol::sendMessage(uint64 destId, uint64 msgId, bool broadcast
         fragment.totalN = n;
         fragment.seqN = i;
         fragment.hops = maxHops;
-        fragment.size = fragmentSize;
+        fragment.size = length < fragmentSize?length:fragmentSize;
         enQueueFragment(fragment);
         emit(fragmentGenerated, fragment.size);
     }
